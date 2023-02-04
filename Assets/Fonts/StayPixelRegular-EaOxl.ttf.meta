@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b872e5c8629776c4bb32e527082ec6a7
+guid: 56eed8cdac5577a49990a7e0ba0b44e1
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Cream Cake
+  - Stay Pixel
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

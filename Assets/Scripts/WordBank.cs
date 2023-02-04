@@ -16,7 +16,7 @@ public class WordBank : MonoBehaviour
     {
         tmp = GetComponent<TextMeshProUGUI>();
         mesh = tmp.mesh;
-        setWord("Anger");
+        setWord("");
     }
 
     // Update is called once per frame
