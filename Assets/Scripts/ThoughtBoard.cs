@@ -4,101 +4,68 @@ using UnityEngine;
 
 public class ThoughtBoard : MonoBehaviour
 {
-
+    [SerializeField] WordBank wordBank;
     string chosen;
 
-    void Update() {
+    void Update()
+    {
+        chosen = readChordInput();
 
-        if (Input.GetKeyDown(KeyCode.A)) {
-
-            if (Input.GetKey(KeyCode.S)) {
-
-                chosen = "Envy";
-
-            } else if (Input.GetKey(KeyCode.D)) {
-
-                chosen = "Aggression";
-
-            } else if (Input.GetKey(KeyCode.F)) {
-
-                chosen = "N/A";
-
-            } else {
-
-                chosen = "Anger";
-
-            }
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.S)) {
-
-            if (Input.GetKey(KeyCode.A)) {
-
-                chosen = "Envy";
-
-            } else if (Input.GetKey(KeyCode.D)) {
-
-                chosen = "Pessimism";
-
-            } else if (Input.GetKey(KeyCode.F)) {
-
-                chosen = "Despair";
-
-            } else {
-
-                chosen = "Sadness";
-
-            }
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.D)) {
-
-            if (Input.GetKey(KeyCode.A)) {
-
-                chosen = "Aggression";
-
-            } else if (Input.GetKey(KeyCode.S)) {
-
-                chosen = "Pessimism";
-
-            } else if (Input.GetKey(KeyCode.F)) {
-
-                chosen = "Anxiety";
-
-            } else {
-
-                chosen = "Anticipation";
-
-            }
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.F)) {
-
-            if (Input.GetKey(KeyCode.A)) {
-
-                chosen = "N/A";
-
-            } else if (Input.GetKey(KeyCode.S)) {
-
-                chosen = "Despair";
-
-            } else if (Input.GetKey(KeyCode.D)) {
-
-                chosen = "Anxiety";
-
-            } else {
-
-                chosen = "Fear";
-
-            }
-
-        }
-
-        // print(chosen);
+        if (chosen != "")
+            wordBank.setWord(chosen);
 
     }
 
+    string readChordInput()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (Input.GetKey(KeyCode.S))
+                return "Envy";
+            else if (Input.GetKey(KeyCode.D))
+                return "Aggression";
+            else if (Input.GetKey(KeyCode.F))
+                return "N/A";
+            else
+                return "Anger";
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (Input.GetKey(KeyCode.A))
+                return "Envy";
+            else if (Input.GetKey(KeyCode.D))
+                return "Pessimism";
+            else if (Input.GetKey(KeyCode.F))
+                return "Despair";
+            else
+                return "Sadness";
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (Input.GetKey(KeyCode.A))
+                return "Aggression";
+            else if (Input.GetKey(KeyCode.S))
+                return "Pessimism";
+            else if (Input.GetKey(KeyCode.F))
+                return "Anxiety";
+            else
+                return "Anticipation";
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (Input.GetKey(KeyCode.A))
+                return "N/A";
+            else if (Input.GetKey(KeyCode.S))
+                return "Despair";
+            else if (Input.GetKey(KeyCode.D))
+                return "Anxiety";
+            else
+                return "Fear";
+        }
+
+        return "";
+    }
 }

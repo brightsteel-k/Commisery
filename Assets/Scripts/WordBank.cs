@@ -40,7 +40,7 @@ public class WordBank : MonoBehaviour
         tick += Time.deltaTime;
         for (int i = 0; i < vertices.Length; i++)
         {
-            Vector3 offset = wobble(tick + i, 10f, 9f);
+            Vector3 offset = wobble(tick + i, 8f, 6f);
             vertices[i] = originalVertices[i] + offset;
         }
 
@@ -50,6 +50,6 @@ public class WordBank : MonoBehaviour
 
     Vector2 wobble(float time, float x, float y)
     {
-        return new Vector2(Mathf.Sin(time * x), Mathf.Cos(time * y));
+        return new Vector2(Mathf.Sin(time * x) * 2f, Mathf.Cos(time * y) * 2f);
     }
 }
