@@ -7,18 +7,22 @@ public class WordBank : MonoBehaviour
 {
     TextMeshProUGUI tmp;
     Mesh mesh;
+    Vector3[] originalVertices;
     Vector3[] vertices;
+    float tick = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         tmp = GetComponent<TextMeshProUGUI>();
         mesh = tmp.mesh;
+        setWord("Anger");
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(mesh.vertices.Length);
         vertices = mesh.vertices;
         animateWord();
     }
@@ -26,14 +30,18 @@ public class WordBank : MonoBehaviour
     public void setWord(string emotion)
     {
         tmp.SetText(emotion);
+        tmp.ForceMeshUpdate();
+        originalVertices = mesh.vertices;
+        Debug.Log(originalVertices.Length);
     }
 
     void animateWord()
     {
+        tick += Time.deltaTime;
         for (int i = 0; i < vertices.Length; i++)
         {
-            Vector3 offset = wobble(Time.time + i, 10f, 9f);
-            vertices[i] = vertices[i] + offset;
+            Vector3 offset = wobble(tick + i, 10f, 9f);
+            vertices[i] = originalVertices[i] + offset;
         }
 
         mesh.vertices = vertices;

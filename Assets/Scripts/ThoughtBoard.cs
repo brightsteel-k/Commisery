@@ -97,7 +97,7 @@ public class ThoughtBoard : MonoBehaviour
 
         }
 
-        print(chosen);
+        // print(chosen);
 
     }
 
