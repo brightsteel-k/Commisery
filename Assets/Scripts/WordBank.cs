@@ -5,11 +5,12 @@ using TMPro;
 
 public class WordBank : MonoBehaviour
 {
-    TextMeshProUGUI tmp;
-    Mesh mesh;
-    Vector3[] originalVertices;
-    Vector3[] vertices;
-    float tick = 0;
+    private TextMeshProUGUI tmp;
+    private Mesh mesh;
+    private Vector3[] originalVertices;
+    private Vector3[] vertices;
+    private float tick = 0;
+    private string selectedEmotion = "";
 
     // Start is called before the first frame update
     void Start()
@@ -24,16 +25,19 @@ public class WordBank : MonoBehaviour
     {
         vertices = mesh.vertices;
         animateWord();
+        if (selectedEmotion != "")
+            checkStartCommiserate();
     }
 
     public void setWord(string emotion)
     {
+        selectedEmotion = emotion;
         tmp.SetText(emotion);
         tmp.ForceMeshUpdate();
         originalVertices = mesh.vertices;
     }
 
-    void animateWord()
+    private void animateWord()
     {
         tick += Time.deltaTime;
         for (int i = 0; i < vertices.Length; i++)
@@ -46,8 +50,13 @@ public class WordBank : MonoBehaviour
         tmp.canvasRenderer.SetMesh(mesh);
     }
 
-    Vector2 wobble(float time, float x, float y)
+    private Vector2 wobble(float time, float x, float y)
     {
         return new Vector2(Mathf.Sin(time * x) * 2f, Mathf.Cos(time * y) * 2f);
+    }
+
+    private void checkStartCommiserate()
+    {
+
     }
 }
