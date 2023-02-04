@@ -22,7 +22,6 @@ public class WordBank : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(mesh.vertices.Length);
         vertices = mesh.vertices;
         animateWord();
     }
@@ -32,7 +31,6 @@ public class WordBank : MonoBehaviour
         tmp.SetText(emotion);
         tmp.ForceMeshUpdate();
         originalVertices = mesh.vertices;
-        Debug.Log(originalVertices.Length);
     }
 
     void animateWord()
