@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using TMPro;
 
-public class WordBank : MonoBehaviour
+public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     private TextMeshProUGUI tmp;
     private Mesh mesh;
@@ -11,6 +12,9 @@ public class WordBank : MonoBehaviour
     private Vector3[] vertices;
     private float tick = 0;
     private string selectedEmotion = "";
+    private Color32 gray = new Color32(192, 192, 192, 255);
+    [SerializeField] private Material fontRegular;
+    [SerializeField] private Material fontHighlight;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +29,6 @@ public class WordBank : MonoBehaviour
     {
         vertices = mesh.vertices;
         animateWord();
-        if (selectedEmotion != "")
-            checkStartCommiserate();
     }
 
     public void setWord(string emotion)
@@ -55,8 +57,22 @@ public class WordBank : MonoBehaviour
         return new Vector2(Mathf.Sin(time * x) * 2f, Mathf.Cos(time * y) * 2f);
     }
 
-    private void checkStartCommiserate()
+    public void OnPointerEnter(PointerEventData eventData)
     {
+        if (selectedEmotion == "")
+            return;
+        tmp.color = Color.white;
+        tmp.fontMaterial = fontHighlight;
+    }
 
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        tmp.color = gray;
+        tmp.fontMaterial = fontRegular;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("SELECTED: " + selectedEmotion);
     }
 }
