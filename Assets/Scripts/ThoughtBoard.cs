@@ -5,92 +5,99 @@ using UnityEngine;
 public class ThoughtBoard : MonoBehaviour
 {
 
-    /** Anger, Sadness, Fear, Anticipation */
-    bool[] current = {false, false, false, false};
-
     string chosen;
 
     void Update() {
 
-        checkKeyPress();
-
-        if (checkCombinations() != null) {
-
-            chosen = checkCombinations();
-
-        }
-
-        print(chosen);
-        
-    }
-
-    void checkKeyPress() {
-
         if (Input.GetKeyDown(KeyCode.A)) {
 
-            current[0] = true;
-            chosen = "Anger";
+            if (Input.GetKey(KeyCode.S)) {
+
+                chosen = "Envy";
+
+            } else if (Input.GetKey(KeyCode.D)) {
+
+                chosen = "Aggression";
+
+            } else if (Input.GetKey(KeyCode.F)) {
+
+                chosen = "N/A";
+
+            } else {
+
+                chosen = "Anger";
+
+            }
 
         }
 
         if (Input.GetKeyDown(KeyCode.S)) {
 
-            current[1] = true;
-            chosen = "Sadness";
+            if (Input.GetKey(KeyCode.A)) {
+
+                chosen = "Envy";
+
+            } else if (Input.GetKey(KeyCode.D)) {
+
+                chosen = "Pessimism";
+
+            } else if (Input.GetKey(KeyCode.F)) {
+
+                chosen = "Despair";
+
+            } else {
+
+                chosen = "Sadness";
+
+            }
 
         }
 
         if (Input.GetKeyDown(KeyCode.D)) {
 
-            current[2] = true;
-            chosen = "Fear";
+            if (Input.GetKey(KeyCode.A)) {
+
+                chosen = "Aggression";
+
+            } else if (Input.GetKey(KeyCode.S)) {
+
+                chosen = "Pessimism";
+
+            } else if (Input.GetKey(KeyCode.F)) {
+
+                chosen = "Anxiety";
+
+            } else {
+
+                chosen = "Fear";
+
+            }
 
         }
 
         if (Input.GetKeyDown(KeyCode.F)) {
 
-            current[3] = true;
-            chosen = "Anticipation";
+            if (Input.GetKey(KeyCode.A)) {
+
+                chosen = "N/A";
+
+            } else if (Input.GetKey(KeyCode.S)) {
+
+                chosen = "Despair";
+
+            } else if (Input.GetKey(KeyCode.D)) {
+
+                chosen = "Anxiety";
+
+            } else {
+
+                chosen = "Fear";
+
+            }
 
         }
 
-    }
-
-    string checkCombinations() {
-
-        string res;
-
-        if (current[0] && current[1]) {
-
-            res = "Envy";
-
-        } else if (current[0] && current[2]) {
-
-            res = "Undefined";
-
-        } else if (current[0] && current[3]) {
-
-            res = "Aggression";
-
-        } else if (current[1] && current[2]) {
-
-            res = "Despair";
-
-        } else if (current[1] && current[3]) {
-
-            res = "Pessimism";
-
-        } else if (current[2] && current[3]) {
-
-            res = "Anxiety";
-
-        } else {
-
-            res = null;
-
-        }
-
-        return res;
+        print(chosen);
 
     }
 
