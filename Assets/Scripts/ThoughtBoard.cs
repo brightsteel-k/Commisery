@@ -69,7 +69,7 @@ public class ThoughtBoard : MonoBehaviour
 
             } else {
 
-                chosen = "Fear";
+                chosen = "Anticipation";
 
             }
 
