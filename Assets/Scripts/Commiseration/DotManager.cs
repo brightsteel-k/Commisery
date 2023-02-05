@@ -13,6 +13,12 @@ public class DotManager : MonoBehaviour
     public static Emotion CURRENT_EMOTION;
     private static DotManager INSTANCE;
     private static List<Dot> ACTIVE_DOTS = new List<Dot>();
+    public static List<Dot>[] DOTS_IN_RANGE = new List<Dot>[] {
+        new List<Dot>() { },
+        new List<Dot>() { },
+        new List<Dot>() { },
+        new List<Dot>() { }
+    };
     public static float DELTA_TIME;
 
     private static float speed = 150f;
@@ -62,7 +68,7 @@ public class DotManager : MonoBehaviour
 
         // Anxiety paths
         initializePath(8, new int[] { 0, 1, 2, 34, 35, 36, 33, 8, 19, 31, 6, 5, 33, 8, 9, 10, 11, 12, 13, 14 }); // Chord 0, path X
-        initializePath(9, new int[] { 0, 1, 40, 36, 5, 6, 7, 8, 9, 10, 11, 12, 13, 12, 11, 15, 16, 12, 17, 18 }); // Chord 1, path X
+        initializePath(9, new int[] { 0, 1, 40, 36, 5, 6, 7, 8, 9, 10, 11, 12, 13, 12, 11, 15, 16, 17, 18 }); // Chord 1, path X
         initializePath(10, new int[] { 0, 1, 40, 35, 37, 38, 39, 31, 32, 28, 29, 28, 27, 21, 22, 23, 24, 25, 26 }); // Chord 2, path X
         initializePath(11, new int[] { 0, 1, 2, 34, 35, 36, 5, 4, 3, 34, 37, 38, 39, 19, 8, 7, 32, 28, 29, 30 }); // Chord 3, path X
 
@@ -83,11 +89,34 @@ public class DotManager : MonoBehaviour
         Dot.ALL_PATHS[n] = v.ToArray();
     }
 
+    public static bool checkChordStrum(int index)
+    {
+        if (DOTS_IN_RANGE[index].Count == 0)
+            return false;
+
+        clearDotsInRange(index);
+        return true;
+    }
+
     public static void startCommiserate(Emotion emotion)
     {
         CURRENT_EMOTION = emotion;
+        clearDotsInRanges();
         generateSequence();
         INSTANCE.StartCoroutine("spawnDots");
+    }
+
+    static void clearDotsInRanges()
+    {
+        foreach (List<Dot> dots in DOTS_IN_RANGE)
+            dots.Clear();
+    }
+    
+    static void clearDotsInRange(int index)
+    {
+        foreach (Dot d in DOTS_IN_RANGE[index])
+            d.GetDestroyed();
+        DOTS_IN_RANGE[index].Clear();
     }
 
     static List<(int, float)> generateSequence()
