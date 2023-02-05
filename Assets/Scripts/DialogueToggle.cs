@@ -57,6 +57,9 @@ public class DialogueToggle : MonoBehaviour
 
         dialogue.text = result;
 
+        LeanTween.value(this.gameObject, 0f, dialogue.text.Length, dialogue.text.Length * 0.05f)
+                 .setOnUpdate(e => dialogue.maxVisibleCharacters = (int)e);
+
     }
 
 }
