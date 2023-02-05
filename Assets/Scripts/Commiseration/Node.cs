@@ -11,7 +11,6 @@ public class Node : MonoBehaviour
     private void Awake()
     {
         ALL_NODES.Add(id, transform.position);
-        Debug.Log("Added id: " + id);
     }
 
     // Start is called before the first frame update
