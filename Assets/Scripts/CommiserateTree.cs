@@ -64,7 +64,7 @@ public class CommiserateTree : MonoBehaviour
         }
     }
 
-    public static void failChord(int index, bool despair)
+    public static void failCommiserate(bool despair)
     {
         EventManager.Insanify(despair ? 0.4f : 0.1f);
     }

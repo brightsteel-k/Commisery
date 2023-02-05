@@ -20,6 +20,7 @@ public class DotManager : MonoBehaviour
         new List<Dot>() { }
     };
     public static float DELTA_TIME;
+    public static int LOST_DOTS = 0;
 
     private static float speed = 150f;
     private static int length = 8;
@@ -101,6 +102,7 @@ public class DotManager : MonoBehaviour
     public static void startCommiserate(Emotion emotion)
     {
         CURRENT_EMOTION = emotion;
+        LOST_DOTS = 0;
         clearDotsInRanges();
         generateSequence();
         INSTANCE.StartCoroutine("spawnDots");
@@ -167,6 +169,16 @@ public class DotManager : MonoBehaviour
         
         d.initialize(path, dotSpeed, path % 4, CURRENT_EMOTION);
         ACTIVE_DOTS.Add(d);
+    }
+
+    public static void missDot()
+    {
+        LOST_DOTS++;
+
+        if (LOST_DOTS >= 2)
+        {
+            CommiserateTree.failCommiserate(CURRENT_EMOTION == Emotion.Despair);
+        }
     }
 
     public static void removeDot(Dot d)

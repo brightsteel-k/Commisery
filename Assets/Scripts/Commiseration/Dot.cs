@@ -46,7 +46,6 @@ public class Dot : MonoBehaviour
     void finishPath()
     {
         ChordManager.chordFailure(chordIndex);
-        CommiserateTree.failChord(chordIndex, DotManager.CURRENT_EMOTION == Emotion.Despair);
         DestroySelf();
     }
 

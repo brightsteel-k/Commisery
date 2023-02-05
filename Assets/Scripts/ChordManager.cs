@@ -88,6 +88,6 @@ public class ChordManager : MonoBehaviour
         Image i = INSTANCE.chordImages[index];
         i.CrossFadeColor(Color.black, 0f, false, false);
         i.CrossFadeColor(CURRENT_COLOR, 1f, false, false);
-        EventManager.Insanify(0.1f);
+        DotManager.missDot();
     }
 }
