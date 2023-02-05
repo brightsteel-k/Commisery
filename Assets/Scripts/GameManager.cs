@@ -15,7 +15,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.G))
+            EventManager.GenerateRoom();
         
+    }
+
+    public void generateNewRoom() {
+
+        EventManager.GenerateRoom();
+
     }
 
     public static void nextInterlocutor()
@@ -32,20 +41,5 @@ public class GameManager : MonoBehaviour
         else
             EventManager.FailCommiserate();
     }
-}
 
-public enum Emotion
-{
-    Happiness,
-    Sadness,
-    Anger,
-    Fear,
-    Anticipation,
-    Envy,
-    Pessimism,
-    Anxiety,
-    Aggression,
-    Despair,
-    Powerless,
-    None
 }

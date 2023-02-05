@@ -6,40 +6,59 @@ using TMPro;
 public class DialogueToggle : MonoBehaviour
 {
 
-    bool toggled;
-
     TMP_Text dialogue;
+
+    float displacement;
 
     // Start is called before the first frame update
     void Start()
     {
-        toggled = false;
 
         dialogue = transform.GetChild(1).gameObject.GetComponent(typeof(TMP_Text)) as TMP_Text;
 
-        dialogue.text = "";
+        openDialogueBox();
+
+        EventManager.GENERATE_ROOM += closeDialogueBox;
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-        if (Input.GetKeyDown(KeyCode.J)) {
+    void Update() {
 
-            toggled = toggled ? false : true;
-
-            if (toggled)
-                LeanTween.scale(this.gameObject, new Vector3(1, 1, 1), 1.0f).setEase( LeanTweenType.easeOutQuint );
-            else
-                LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 1.0f).setEase( LeanTweenType.easeOutQuint );
-
+        if (EventManager.TRANSITION_COMPLETED == true) {
+            EventManager.TRANSITION_COMPLETED = false;
+            openDialogueBox();
         }
 
-        if (toggled && Input.GetKeyDown(KeyCode.K)) {
+    }
 
-            generateRandomSymbols();
 
-        }
+    void openDialogueBox() {
+
+        generateRandomSymbols();
+
+        LeanTween.scale(this.gameObject, new Vector3(0.9f, 0.9f, 0.9f), 1.0f)
+                 .setEase( LeanTweenType.easeOutQuint );
+
+    }
+
+    void closeDialogueBox() {
+
+        LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 1.0f)
+                 .setEase( LeanTweenType.easeInBack )
+                 .setOnComplete(() => { 
+
+                    dialogue.text = "";
+
+                 });
+
+        LeanTween.moveX(this.gameObject, -0.0015f, 4.0f)
+                 .setEase(LeanTweenType.easeInOutCubic)
+                 .setOnComplete(() => {
+
+                    transform.position = new Vector3(1170.1f, 678.78f, 0f);
+
+                 });
 
     }
 
