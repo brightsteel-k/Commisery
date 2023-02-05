@@ -155,7 +155,7 @@ RectTransform:
   - {fileID: 555002919}
   - {fileID: 1734435536}
   m_Father: {fileID: 366995338}
-  m_RootOrder: 9
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -270,12 +270,12 @@ RectTransform:
   - {fileID: 2027885440}
   - {fileID: 2070820048}
   - {fileID: 487960759}
+  - {fileID: 14614599}
   - {fileID: 2097020545}
   - {fileID: 2001503619}
   - {fileID: 2079024651}
   - {fileID: 1154567807}
   - {fileID: 2128380234}
-  - {fileID: 14614599}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -919,7 +919,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366995338}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1494,7 +1494,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366995338}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1621,7 +1621,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1172449916}
         m_TargetAssemblyTypeName: BackgroundController, Assembly-CSharp
-        m_MethodName: translateNewRoom
+        m_MethodName: generateNewRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1873,7 +1873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037311923209150501, guid: cd425d4c163d09e46b8049c937eeb7e1, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1037311923209150501, guid: cd425d4c163d09e46b8049c937eeb7e1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2053,7 +2053,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366995338}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2129,7 +2129,7 @@ RectTransform:
   m_Children:
   - {fileID: 1195329957}
   m_Father: {fileID: 366995338}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

@@ -36,10 +36,18 @@ public class BackgroundController : MonoBehaviour
     {
         
         if (Input.GetKeyDown(KeyCode.G))
-            translateNewRoom();
+            generateNewRoom();
 
     }
 
+
+    public void generateNewRoom() {
+
+        rightCharacter = generateCharacter(rightPane, 20.498f, 1);
+
+        translatePanes();
+
+    }
 
 
     private GameObject generateCharacter(GameObject appendTo, float xPos, int sIndex) {
@@ -60,11 +68,11 @@ public class BackgroundController : MonoBehaviour
 
     }
 
-    public void translateNewRoom() {
 
-        rightCharacter = generateCharacter(rightPane, 20.498f, 1);
+    private void translatePanes() {
 
         gameObject.transform.position = new Vector3(0, 0, 0);
+        
         LeanTween.moveX(gameObject, -20.498f, 4.0f)
                  .setEase(LeanTweenType.easeInOutCubic)
                  .setOnComplete(() => { 
@@ -82,5 +90,6 @@ public class BackgroundController : MonoBehaviour
                  });
 
     }
+
 
 }
