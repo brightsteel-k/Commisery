@@ -16,20 +16,28 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private Material fontRegular;
     [SerializeField] private Material fontHighlight;
 
+    void Awake()
+    {
+        EventManager.START_COMMISERATE += onCommiserateStart;
+        EventManager.GENERATE_ROOM += onRoomEnd;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         tmp = GetComponent<TextMeshProUGUI>();
         mesh = tmp.mesh;
         setWord(Emotion.None);
-        EventManager.START_COMMISERATE += onCommiserateStart;
     }
 
     // Update is called once per frame
     void Update()
     {
-        vertices = mesh.vertices;
-        animateWord();
+        if (EventManager.TRANSITION_COMPLETED)
+        {
+            vertices = mesh.vertices;
+            animateWord();
+        }
     }
 
     public void setWord(Emotion emotion)
@@ -84,6 +92,11 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (EventManager.COMMISERATING)
             return;
         GameManager.tryCommiserateEmotion(selectedEmotion);
+    }
+
+    void onRoomEnd()
+    {
+        setWord(Emotion.None);
     }
 
     void onCommiserateStart(Emotion emotion)

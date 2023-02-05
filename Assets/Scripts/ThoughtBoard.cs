@@ -9,18 +9,22 @@ public class ThoughtBoard : MonoBehaviour
     [SerializeField] WordBank wordBank;
     [SerializeField] Button sb;
     [SerializeField] GameObject sanityOverlay;
+    [SerializeField] GameObject thoughtBoardOverlay;
     [SerializeField] GameObject nebula;
     Emotion chosen;
 
-    void Start() {
-
+    private void Awake()
+    {
         EventManager.GENERATE_ROOM += disableBoard;
+        EventManager.START_ROOM += onTransitionCompleted;
+    }
+
+    void Start() {
 
     }
 
     void Update()
     {
-
         if (!EventManager.COMMISERATING && EventManager.TRANSITION_COMPLETED)
         {
             chosen = readInitialChordInput();
@@ -28,18 +32,6 @@ public class ThoughtBoard : MonoBehaviour
             if (chosen != Emotion.None)
                 wordBank.setWord(chosen);
         }
-
-        if (EventManager.TRANSITION_COMPLETED) {
-
-            GameManager.TRANSITION_COND_1 = true;
-            sb.enabled = true;
-            nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.white;
-            nebula.transform.GetChild(1).gameObject.GetComponent<Image>().color = Color.white;
-            sanityOverlay.SetActive(false);
-            transform.GetChild(3).gameObject.SetActive(false);
-
-        }
-
     }
 
     Emotion readInitialChordInput()
@@ -96,15 +88,18 @@ public class ThoughtBoard : MonoBehaviour
     }
 
 
-    void disableBoard() {
+    void disableBoard()
+    {
         sb.enabled = false;
-        print(nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color);
-        nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(29f/255f, 29f/255f, 29f/255f, 255f);
-        nebula.transform.GetChild(1).gameObject.GetComponent<Image>().color = new Color(29f/255f, 29f/255f, 29f/255f, 255f);
         sanityOverlay.SetActive(true);
-        transform.GetChild(3).gameObject.SetActive(true);
+        thoughtBoardOverlay.gameObject.SetActive(true);
 
     }
 
-
+    void onTransitionCompleted()
+    {
+        sb.enabled = true;
+        sanityOverlay.SetActive(false);
+        thoughtBoardOverlay.SetActive(false);
+    }
 }

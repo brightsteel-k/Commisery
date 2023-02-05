@@ -18,6 +18,11 @@ public class BackgroundController : MonoBehaviour
 
     private int count = 0;
 
+    private void Awake()
+    {
+        EventManager.GENERATE_ROOM += generateNewRoom;
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -28,9 +33,6 @@ public class BackgroundController : MonoBehaviour
         rightPane = transform.GetChild(1).gameObject;
         
         leftCharacter = generateCharacter(leftPane, 0f, 0);
-
-        EventManager.GENERATE_ROOM += generateNewRoom;
-        
     }
 
     // Update is called once per frame
@@ -88,7 +90,7 @@ public class BackgroundController : MonoBehaviour
 
                     leftCharacter = rightCharacter;
 
-                    EventManager.TRANSITION_COMPLETED = true;
+                    EventManager.StartRoom();
 
                  });
 

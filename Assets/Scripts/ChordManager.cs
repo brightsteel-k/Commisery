@@ -12,13 +12,17 @@ public class ChordManager : MonoBehaviour
     
     static ChordManager INSTANCE;
     public static Color32 CURRENT_COLOR = Color.white;
-    
+
+
+    private void Awake()
+    {
+        EventManager.START_COMMISERATE += onCommiserateStart;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         INSTANCE = GetComponent<ChordManager>();
-        EventManager.START_COMMISERATE += onCommiserateStart;
     }
 
     // Update is called once per frame
@@ -39,6 +43,7 @@ public class ChordManager : MonoBehaviour
 
     void strumChord(int index)
     {
+        Debug.Log(EventManager.TRANSITION_COMPLETED);
         if (!EventManager.TRANSITION_COMPLETED)
             return;
 

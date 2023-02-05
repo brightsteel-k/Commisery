@@ -5,46 +5,40 @@ using TMPro;
 
 public class DialogueToggle : MonoBehaviour
 {
-
     TMP_Text dialogue;
 
-    float displacement;
+    private void Awake()
+    {
+        EventManager.GENERATE_ROOM += closeDialogueBox;
+        EventManager.START_ROOM += openDialogueBox;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
         dialogue = transform.GetChild(1).gameObject.GetComponent(typeof(TMP_Text)) as TMP_Text;
 
         openDialogueBox();
-
-        EventManager.GENERATE_ROOM += closeDialogueBox;
-
     }
 
 
     void Update() {
 
-        if (EventManager.TRANSITION_COMPLETED) {
-            GameManager.TRANSITION_COND_2 = true;
-            openDialogueBox();
-        }
 
     }
-
 
     void openDialogueBox() {
 
         generateRandomSymbols();
 
-        LeanTween.scale(this.gameObject, new Vector3(0.9f, 0.9f, 0.9f), 1.0f)
+        LeanTween.scale(gameObject, new Vector3(0.9f, 0.9f, 0.9f), 1.0f)
                  .setEase( LeanTweenType.easeOutQuint );
 
     }
 
     void closeDialogueBox() {
 
-        LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 1.0f)
+        LeanTween.scale(gameObject, new Vector3(0, 0, 0), 1.0f)
                  .setEase( LeanTweenType.easeInBack )
                  .setOnComplete(() => { 
 
@@ -52,7 +46,7 @@ public class DialogueToggle : MonoBehaviour
 
                  });
 
-        LeanTween.moveX(this.gameObject, -0.0015f, 4.0f)
+        LeanTween.moveX(gameObject, -0.0015f, 4.0f)
                  .setEase(LeanTweenType.easeInOutCubic)
                  .setOnComplete(() => {
 
@@ -74,7 +68,7 @@ public class DialogueToggle : MonoBehaviour
 
         dialogue.text = result;
 
-        LeanTween.value(this.gameObject, 0f, dialogue.text.Length, dialogue.text.Length * 0.05f)
+        LeanTween.value(gameObject, 0f, dialogue.text.Length, dialogue.text.Length * 0.05f)
                  .setOnUpdate(e => dialogue.maxVisibleCharacters = (int)e);
 
     }

@@ -11,14 +11,17 @@ public class CommiserateTree : MonoBehaviour
     static CommiserateTree INSTANCE;
     private Color32 overlayColor = new Color(0, 0, 0, 0.65f);
 
+    private void Awake()
+    {
+        EventManager.START_COMMISERATE += onCommiserateStart;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         background.transform.position += new Vector3(0, 800, 0);
         transform.position += new Vector3(0, -1080, 0);
         INSTANCE = GetComponent<CommiserateTree>();
-
-        EventManager.START_COMMISERATE += onCommiserateStart;
     }
 
     // Update is called once per frame
