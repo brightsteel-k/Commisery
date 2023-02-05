@@ -10,8 +10,6 @@ public static class Emotions
     {
         switch (emotion)
         {
-            case Emotion.Happiness:
-                return Color.yellow;
             case Emotion.Anger:
                 return new Color32(255, 52, 52, 255);
             case Emotion.Sadness:
@@ -41,8 +39,6 @@ public static class Emotions
     {
         switch (emotion)
         {
-            case Emotion.Happiness:
-                return Color.yellow;
             case Emotion.Anger:
                 return new Color32(255, 73, 73, 255);
             case Emotion.Sadness:
@@ -70,7 +66,6 @@ public static class Emotions
 }
 public enum Emotion
 {
-    Happiness,
     Sadness,
     Anger,
     Fear,

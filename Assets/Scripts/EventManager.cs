@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class EventManager
 {
@@ -12,6 +13,7 @@ public class EventManager
     public static event Action GENERATE_ROOM;
     public static event Action START_ROOM;
     public static event Action<float> INSANIFY;
+    public static event Action END_GAME;
 
     public static bool COMMISERATING = false;
     public static bool TRANSITION_COMPLETED = true;
@@ -25,6 +27,7 @@ public class EventManager
     public static void CommiserateWin()
     {
         COMMISERATE_WIN?.Invoke();
+        GameManager.COMMISERATE_SUCCESSES += 1;
     }
     public static void CommiserateLose()
     {
@@ -45,5 +48,8 @@ public class EventManager
     public static void Insanify(float amount)
     {
         INSANIFY?.Invoke(amount);
+    }
+    public static void EndGame() {
+        SceneManager.LoadScene(6);
     }
 }

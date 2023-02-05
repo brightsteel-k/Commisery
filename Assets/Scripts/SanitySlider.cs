@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SanitySlider : MonoBehaviour
 {
@@ -20,11 +21,17 @@ public class SanitySlider : MonoBehaviour
 
         slider = GetComponent<Slider>();
 
-        slider.value = 0;
+        slider.value = 0.90f;
 
     }
 
     private void Update() {
+
+        if (slider.value >= 1.0f) {
+
+            EventManager.EndGame();
+
+        }
 
     }
 
