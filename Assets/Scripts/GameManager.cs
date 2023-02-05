@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,17 +9,20 @@ public class GameManager : MonoBehaviour
 
     public static Emotion FAILED_EMOTION;
 
-    private static int ROUNDS;
+    public static int COMMISERATE_SUCCESSES;
+
+    public static int ROUNDS;
 
     private void Awake()
     {
-        
+        EventManager.COMMISERATE_WIN += generateNewRoom;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         ROUNDS = 0;
+        COMMISERATE_SUCCESSES = 0;
 
         CURRENT_EMOTIONS = new List<Emotion>();
         
@@ -39,9 +43,7 @@ public class GameManager : MonoBehaviour
 
         if (ROUNDS == 0) {
 
-            CURRENT_EMOTIONS.Add(Emotion.Envy);
-            CURRENT_EMOTIONS.Add(Emotion.Anxiety);
-            CURRENT_EMOTIONS.Add(Emotion.Powerless);
+            CURRENT_EMOTIONS.Add(Emotion.Sadness);
 
         } else if (ROUNDS == 1) {
 

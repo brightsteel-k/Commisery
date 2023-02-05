@@ -21,15 +21,16 @@ public class DotManager : MonoBehaviour
     };
     public static float DELTA_TIME;
     public static int LOST_DOTS = 0;
+    public static bool DOTS_SPAWNED = false;
 
-    private static float speed = 150f;
-    private static int length = 8;
-    private static float timeThreshold = 2;
-    private static float difficulty = 1;
+    private static float speedInit = 150f;
+    private static int lengthInit = 8;
+    private static float timeThresholdInit = 2;
+    private static float difficultyInit = 1;
 
     private void Awake()
     {
-         
+        EventManager.START_COMMISERATE += resetGame;
     }
 
     // Start is called before the first frame update
@@ -44,8 +45,18 @@ public class DotManager : MonoBehaviour
 
     private void Update()
     {
+        if (!EventManager.COMMISERATING)
+            return;
+
         if (CURRENT_EMOTION == Emotion.Pessimism)
             DELTA_TIME += Time.deltaTime;
+
+        if (DOTS_SPAWNED && ACTIVE_DOTS.Count == 0)
+        {
+            CommiserateTree.succeedCommiserate();
+            Nebula.removeEmotion(CURRENT_EMOTION);
+            GameManager.CURRENT_EMOTIONS.Remove(CURRENT_EMOTION);
+        }
     }
 
     static void initializeNodes(TextAsset t)
@@ -127,6 +138,10 @@ public class DotManager : MonoBehaviour
 
     static List<(int, float)> generateSequence()
     {
+        int length = lengthInit + GameManager.ROUNDS;
+        float timeThreshold = Mathf.Max(1f, 2f - (GameManager.ROUNDS * 0.1f));
+        float difficulty = difficultyInit + GameManager.ROUNDS;
+
         DELTA_TIME = 0f;
         CURRENT_SEQUENCE = new List<(int, float)>();
         int pathIndices = CURRENT_EMOTION == Emotion.Anxiety ? 12 : 8;
@@ -165,11 +180,13 @@ public class DotManager : MonoBehaviour
             INSTANCE.spawnDot(dotPlan.Item1);
             yield return new WaitForSeconds(dotPlan.Item2);
         }
+        DOTS_SPAWNED = true;
         yield return null;
     }
     
     void spawnDot(int path)
     {
+        float speed = 10f * GameManager.ROUNDS + speedInit;
         Vector2 startPos = ALL_NODES[0];
         Dot d = Instantiate(PREFAB_DOT, startPos, Quaternion.identity, transform).GetComponent<Dot>();
         float dotSpeed = CURRENT_EMOTION == Emotion.Powerless ? speed * 2 : speed;
@@ -182,7 +199,7 @@ public class DotManager : MonoBehaviour
     {
         LOST_DOTS++;
 
-        if (LOST_DOTS >= 2)
+        if (LOST_DOTS >= 6)
         {
             CommiserateTree.failCommiserate(CURRENT_EMOTION == Emotion.Despair);
         }
@@ -191,5 +208,10 @@ public class DotManager : MonoBehaviour
     public static void removeDot(Dot d)
     {
         ACTIVE_DOTS.Remove(d);
+    }
+
+    public static void resetGame(Emotion e)
+    {
+        DOTS_SPAWNED = false;
     }
 }
