@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using System.IO;
 
 public class DotManager : MonoBehaviour
 {
+    [SerializeField] TextAsset serializedNodes;
     private GameObject PREFAB_DOT;
     private static List<(int, float)> CURRENT_SEQUENCE;
+    private static Vector2[] ALL_NODES;
     private static Emotion CURRENT_EMOTION;
     private static DotManager INSTANCE;
     private static List<Dot> ACTIVE_DOTS;
@@ -14,10 +18,22 @@ public class DotManager : MonoBehaviour
     void Start()
     {
         PREFAB_DOT = Resources.Load<GameObject>("Prefabs/CommiserateDot");
+        initializeNodes(serializedNodes);
         initializePaths();
         INSTANCE = this;
         LeanTween.init(800);
-        //Instantiate(PREFAB_DOT, Vector3.zero, Quaternion.identity, transform).GetComponent<Dot>().setPath(0);
+    }
+
+    static void initializeNodes(TextAsset t)
+    {
+        Debug.Log(t.text);
+        float[][] nodeRecords = JsonConvert.DeserializeObject<float[][]>(t.text);
+
+        ALL_NODES = new Vector2[nodeRecords.Length];
+        for (int k = 0; k < nodeRecords.Length; k++)
+        {
+            ALL_NODES[k] = new Vector2(nodeRecords[k][0], nodeRecords[k][1]);
+        }
     }
 
     static void initializePaths()
@@ -37,7 +53,7 @@ public class DotManager : MonoBehaviour
         List<Vector2> v = new List<Vector2>();
         foreach (int i in indices)
         {
-            v.Add(Node.ALL_NODES[i]);
+            v.Add(ALL_NODES[i]);
         }
         Dot.ALL_PATHS[n] = v.ToArray();
     }
@@ -46,7 +62,6 @@ public class DotManager : MonoBehaviour
     {
         CURRENT_EMOTION = emotion;
         generateSequence();
-        Debug.Log("StartCommiserate");
         INSTANCE.StartCoroutine("spawnDots");
     }
 
@@ -76,8 +91,8 @@ public class DotManager : MonoBehaviour
     
     void SpawnDot(int path)
     {
-        Vector2 startPos = Node.ALL_NODES[0];
+        Vector2 startPos = ALL_NODES[0];
         Dot d = Instantiate(PREFAB_DOT, startPos, Quaternion.identity, transform).GetComponent<Dot>();
-        d.initialize(path, 150);
+        d.initialize(path, 150, Color.gray);
     }
 }

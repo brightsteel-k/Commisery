@@ -5,13 +5,7 @@ using TMPro;
 
 public class Node : MonoBehaviour
 {
-    public static Dictionary<int, Vector2> ALL_NODES = new Dictionary<int, Vector2>();
     [SerializeField] int id;
-
-    private void Awake()
-    {
-        ALL_NODES.Add(id, transform.position);
-    }
 
     // Start is called before the first frame update
     void Start()
