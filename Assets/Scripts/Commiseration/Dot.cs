@@ -24,6 +24,8 @@ public class Dot : MonoBehaviour
         if (transform.localPosition.y <= 288 && !clickable)
             clickable = true;
 
+        if (pessimistic)
+            image.color = new Color(Emotions.PESSIMISM_FLASH.r, Emotions.PESSIMISM_FLASH.g, Emotions.PESSIMISM_FLASH.b, pessimistAlpha());
     }
 
     void nextNode()
@@ -74,5 +76,10 @@ public class Dot : MonoBehaviour
         ChordManager.CHORD_STRUMMED[chordIndex] -= checkClicked;
         DotManager.removeDot(this);
         Destroy(gameObject);
+    }
+
+    private float pessimistAlpha()
+    {
+        return Mathf.Sin(DotManager.DELTA_TIME * 6f) / 2f + 0.5f;
     }
 }

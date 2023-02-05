@@ -73,6 +73,7 @@ public class DotManager : MonoBehaviour
 
     static List<(int, float)> generateSequence()
     {
+        DELTA_TIME = 0f;
         CURRENT_SEQUENCE = new List<(int, float)>();
         int length = 8;
         float timeThreshold = 2;
