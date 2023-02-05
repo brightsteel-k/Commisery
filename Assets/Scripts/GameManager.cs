@@ -21,6 +21,12 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void generateNewRoom() {
+
+        EventManager.GenerateRoom();
+
+    }
+
     public static void nextInterlocutor()
     {
         CURRENT_EMOTIONS = new List<Emotion>();

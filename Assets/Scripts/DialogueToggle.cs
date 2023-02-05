@@ -8,6 +8,8 @@ public class DialogueToggle : MonoBehaviour
 
     TMP_Text dialogue;
 
+    float displacement;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +52,13 @@ public class DialogueToggle : MonoBehaviour
 
                  });
 
+        LeanTween.moveX(this.gameObject, -0.0015f, 4.0f)
+                 .setEase(LeanTweenType.easeInOutCubic)
+                 .setOnComplete(() => {
+
+                    transform.position = new Vector3(1170.1f, 678.78f, 0f);
+
+                 });
 
     }
 

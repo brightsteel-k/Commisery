@@ -792,7 +792,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4.999
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -961,17 +961,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154567806}
   m_CullTransparentMesh: 1
---- !u!114 &1172449916 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1631530835722496690, guid: 29c33209f6de2034288fd6d979fc4875, type: 3}
-  m_PrefabInstance: {fileID: 1789485064}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8de87681d332e94d84b0aaf8efe71dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1172599339 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1037311922804587814, guid: cd425d4c163d09e46b8049c937eeb7e1, type: 3}
@@ -1619,18 +1608,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1172449916}
-        m_TargetAssemblyTypeName: BackgroundController, Assembly-CSharp
-        m_MethodName: generateNewRoom
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2070820050}
         m_TargetAssemblyTypeName: SanitySlider, Assembly-CSharp
         m_MethodName: insanify
@@ -1640,6 +1617,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0.15
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2054430908}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: generateNewRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
