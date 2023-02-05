@@ -5,7 +5,7 @@ using System;
 
 public class EventManager
 {
-    public static bool COMMISERATING;
+    public static bool COMMISERATING = false;
 
     public static event Action<Emotion> START_COMMISERATE;
     public static event Action FAIL_COMMISERATE;

@@ -22,7 +22,7 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         tmp = GetComponent<TextMeshProUGUI>();
         mesh = tmp.mesh;
         setWord(Emotion.None);
-        EventManager.START_COMMISERATE += onStartCommiserate;
+        EventManager.START_COMMISERATE += onCommiserateStart;
     }
 
     // Update is called once per frame
@@ -64,7 +64,8 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (selectedEmotion == Emotion.None)
+        Debug.Log("Select!");
+        if (EventManager.COMMISERATING || selectedEmotion == Emotion.None)
             return;
         tmp.color = Color.white;
         tmp.fontMaterial = fontHighlight;
@@ -72,16 +73,21 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (EventManager.COMMISERATING)
+            return;
+
         tmp.color = gray;
         tmp.fontMaterial = fontRegular;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (EventManager.COMMISERATING)
+            return;
         GameManager.tryCommiserateEmotion(selectedEmotion);
     }
 
-    void onStartCommiserate(Emotion emotion)
+    void onCommiserateStart(Emotion emotion)
     {
 
     }
