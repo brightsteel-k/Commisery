@@ -5,22 +5,18 @@ using UnityEngine.UI;
 
 public class Nebula : MonoBehaviour
 {
-
+    public static Dictionary<Emotion, GameObject> ACTIVE_ORBS = new Dictionary<Emotion, GameObject>();
     GameObject current;
     SpriteRenderer sr;
 
     [SerializeField] Sprite orbSprite;
 
     int orbCount = 0;
-    List<GameObject> orbs;
 
     float scale;
 
     void Awake()
     {
-
-        orbs = new List<GameObject>();
-
         EventManager.GENERATE_ROOM += disableNebula;
         EventManager.START_ROOM += enableNebula;
         
@@ -59,7 +55,7 @@ public class Nebula : MonoBehaviour
             }
 
 
-            orbs.Add(current);
+            ACTIVE_ORBS.Add(GameManager.CURRENT_EMOTIONS[i - 1], current);
 
         }
 
@@ -70,12 +66,13 @@ public class Nebula : MonoBehaviour
 
     public void disableNebula() {
 
-        print(orbs);
-        foreach(GameObject o in orbs) {
+        foreach(KeyValuePair<Emotion, GameObject> o in ACTIVE_ORBS) {
 
-            Destroy(o);
+            Destroy(o.Value);
 
         }
+
+        ACTIVE_ORBS.Clear();
 
         transform.Find("Gradient").gameObject.GetComponent<Image>().color = new Color(29f/255f, 29f/255f, 29f/255f, 255f);
         transform.Find("Veins").gameObject.GetComponent<Image>().color = new Color(29f/255f, 29f/255f, 29f/255f, 255f);
@@ -91,4 +88,18 @@ public class Nebula : MonoBehaviour
 
     }
 
+    public static void removeEmotion(Emotion emotion)
+    {
+        GameObject g = ACTIVE_ORBS[emotion];
+        g.GetComponent<Image>().CrossFadeAlpha(0f, 0.3f, false);
+        LeanTween.moveLocalY(g, g.transform.localPosition.y, 0.4f)
+            .setEaseOutSine()
+            .setOnComplete(e => {
+                Destroy(g);
+                GameManager.generateNewRoom();
+                ChordManager.enableInteraction();
+            });
+
+        ACTIVE_ORBS.Remove(emotion);
+    }
 }

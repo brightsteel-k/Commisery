@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
 
     public static int COMMISERATE_SUCCESSES;
 
-    private static int ROUNDS;
+    public static int ROUNDS;
 
     private void Awake()
     {
-        
+        EventManager.COMMISERATE_WIN += generateNewRoom;
     }
 
     // Start is called before the first frame update
@@ -43,9 +43,7 @@ public class GameManager : MonoBehaviour
 
         if (ROUNDS == 0) {
 
-            CURRENT_EMOTIONS.Add(Emotion.Envy);
-            CURRENT_EMOTIONS.Add(Emotion.Anxiety);
-            CURRENT_EMOTIONS.Add(Emotion.Powerless);
+            CURRENT_EMOTIONS.Add(Emotion.Sadness);
 
         } else if (ROUNDS == 1) {
 

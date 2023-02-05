@@ -8,6 +8,7 @@ public class CommiserateTree : MonoBehaviour
     [SerializeField] RawImage darkOverlay;
     [SerializeField] GameObject background;
     [SerializeField] RawImage[] chords;
+    AudioSource audioSource;
     static CommiserateTree INSTANCE;
     private Color32 overlayColor = new Color(0, 0, 0, 0.65f);
 
@@ -20,6 +21,7 @@ public class CommiserateTree : MonoBehaviour
     void Start()
     {
         background.transform.position += new Vector3(0, 800, 0);
+        audioSource = GetComponent<AudioSource>();
         transform.position += new Vector3(0, -1080, 0);
         INSTANCE = GetComponent<CommiserateTree>();
     }
@@ -39,8 +41,8 @@ public class CommiserateTree : MonoBehaviour
     }
     void easeTreeOut()
     {
-        LeanTween.move(gameObject, transform.position - new Vector3(0f, 1080f, 0f), 0.2f);
-        LeanTween.move(background.gameObject, background.transform.position + new Vector3(0f, 800f, 0f), 0.4f).setEase(LeanTweenType.easeOutSine);
+        LeanTween.move(gameObject, transform.position - new Vector3(0f, 1080f, 0f), 0.1f);
+        LeanTween.move(background.gameObject, background.transform.position + new Vector3(0f, 800f, 0f), 0.2f).setEase(LeanTweenType.easeOutSine);
     }
 
     private void onCommiserateStart(Emotion e)
@@ -78,5 +80,15 @@ public class CommiserateTree : MonoBehaviour
         GameManager.FAILED_EMOTION = DotManager.CURRENT_EMOTION;
         EventManager.Insanify(despair ? 0.4f : 0.1f);
         EventManager.CommiserateLose();
+    }
+
+    public static void succeedCommiserate()
+    {
+        INSTANCE.easeTreeOut();
+        INSTANCE.setOverlayActive(false);
+        INSTANCE.audioSource.Play();
+        ChordManager.resetChordColors();
+        ChordManager.disableInteraction();
+        EventManager.CommiserateWin();
     }
 }

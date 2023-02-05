@@ -21,8 +21,6 @@ public class SanitySlider : MonoBehaviour
 
         slider = GetComponent<Slider>();
 
-        slider.value = 0.90f;
-
     }
 
     private void Update() {

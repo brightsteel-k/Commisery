@@ -87,7 +87,7 @@ public class ChordManager : MonoBehaviour
 
     public static void chordFailure(int index)
     {
-        INSTANCE.chordAudios[index].PlayOneShot(soundFail);
+        INSTANCE.chordAudios[index].PlayOneShot(soundFail, 1.5f);
         Image i = INSTANCE.chordImages[index];
         i.CrossFadeColor(Color.black, 0f, false, false);
         i.CrossFadeColor(CURRENT_COLOR, 1f, false, false);
