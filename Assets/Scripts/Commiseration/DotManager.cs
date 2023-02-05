@@ -10,9 +10,10 @@ public class DotManager : MonoBehaviour
     private GameObject PREFAB_DOT;
     private static List<(int, float)> CURRENT_SEQUENCE;
     private static Vector2[] ALL_NODES;
-    private static Emotion CURRENT_EMOTION;
+    public static Emotion CURRENT_EMOTION;
     private static DotManager INSTANCE;
     private static List<Dot> ACTIVE_DOTS = new List<Dot>();
+    public static float DELTA_TIME;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,12 @@ public class DotManager : MonoBehaviour
         initializePaths();
         INSTANCE = GetComponent<DotManager>();
         LeanTween.init(800);
+    }
+
+    private void Update()
+    {
+        if (CURRENT_EMOTION == Emotion.Pessimism)
+            DELTA_TIME += Time.deltaTime;
     }
 
     static void initializeNodes(TextAsset t)
@@ -66,6 +73,7 @@ public class DotManager : MonoBehaviour
 
     static List<(int, float)> generateSequence()
     {
+        DELTA_TIME = 0f;
         CURRENT_SEQUENCE = new List<(int, float)>();
         int length = 8;
         float timeThreshold = 2;
@@ -82,16 +90,21 @@ public class DotManager : MonoBehaviour
     {
         foreach ((int, float) dotPlan in CURRENT_SEQUENCE)
         {
-            INSTANCE.SpawnDot(dotPlan.Item1);
+            INSTANCE.spawnDot(dotPlan.Item1);
             yield return new WaitForSeconds(dotPlan.Item2);
         }
     }
     
-    void SpawnDot(int path)
+    void spawnDot(int path)
     {
         Vector2 startPos = ALL_NODES[0];
         Dot d = Instantiate(PREFAB_DOT, startPos, Quaternion.identity, transform).GetComponent<Dot>();
-        d.initialize(path, 150, path % 4, CURRENT_EMOTION.ChordColor());
+        d.initialize(path, 150, path % 4, CURRENT_EMOTION);
         ACTIVE_DOTS.Add(d);
+    }
+
+    public static void removeDot(Dot d)
+    {
+        ACTIVE_DOTS.Remove(d);
     }
 }

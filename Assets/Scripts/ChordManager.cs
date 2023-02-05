@@ -43,7 +43,6 @@ public class ChordManager : MonoBehaviour
 
     void strumChord(int index)
     {
-        Debug.Log(EventManager.TRANSITION_COMPLETED);
         if (!EventManager.TRANSITION_COMPLETED)
             return;
 

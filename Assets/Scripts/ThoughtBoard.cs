@@ -93,7 +93,6 @@ public class ThoughtBoard : MonoBehaviour
         sb.enabled = false;
         sanityOverlay.SetActive(true);
         thoughtBoardOverlay.gameObject.SetActive(true);
-
     }
 
     void onTransitionCompleted()

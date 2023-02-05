@@ -33,7 +33,7 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // Update is called once per frame
     void Update()
     {
-        if (EventManager.TRANSITION_COMPLETED)
+        if (selectedEmotion != Emotion.None)
         {
             vertices = mesh.vertices;
             animateWord();
@@ -96,6 +96,7 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     void onRoomEnd()
     {
+        selectedEmotion = Emotion.None;
         setWord(Emotion.None);
     }
 

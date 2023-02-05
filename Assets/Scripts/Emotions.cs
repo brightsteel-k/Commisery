@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class Emotions
 {
+    public static Color PESSIMISM_FLASH = new Color(130f / 255f, 160f / 255f, 163f / 255f);
+
     public static Color32 MainColor(this Emotion emotion)
     {
         switch (emotion)
@@ -52,7 +54,7 @@ public static class Emotions
             case Emotion.Aggression:
                 return new Color32(251, 104, 59, 255);
             case Emotion.Pessimism:
-                return new Color32(128, 163, 164, 255);
+                return new Color32(130, 160, 163, 255);
             case Emotion.Envy:
                 return new Color32(167, 72, 126, 255);
             case Emotion.Anxiety:

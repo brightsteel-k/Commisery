@@ -9,6 +9,11 @@ public class SanitySlider : MonoBehaviour
 
     private Slider slider;
 
+    private void Awake()
+    {
+        EventManager.INSANIFY += insanify;
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -20,12 +25,6 @@ public class SanitySlider : MonoBehaviour
     }
 
     private void Update() {
-
-        if (Input.GetKeyDown(KeyCode.L)) {
-
-            insanify(1.0f);
-
-        }
 
     }
 

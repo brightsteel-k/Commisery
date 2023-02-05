@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class Dot : MonoBehaviour
 {
+    static Color32[] PESSIMIST_COLORS = new Color32[] {
+        new Color32(229, 233, 233, 255),
+        new Color32(112, 138, 140, 255)
+    };
     public static Vector2[][] ALL_PATHS = new Vector2[][] { null, null, null, null, null, null, null, null };
     private Vector2[] path;
     private int pathIndex = 0;
@@ -12,12 +16,16 @@ public class Dot : MonoBehaviour
     private RawImage image;
     [SerializeField] private float speed;
     private bool clickable = false;
+    private bool pessimistic = false;
 
     // Update is called once per frame
     void Update()
     {
         if (transform.localPosition.y <= 288 && !clickable)
             clickable = true;
+
+        if (pessimistic)
+            image.color = new Color(Emotions.PESSIMISM_FLASH.r, Emotions.PESSIMISM_FLASH.g, Emotions.PESSIMISM_FLASH.b, pessimistAlpha());
     }
 
     void nextNode()
@@ -39,7 +47,7 @@ public class Dot : MonoBehaviour
     void finishPath()
     {
         ChordManager.chordFailure(chordIndex);
-        CommiserateTree.failChord(chordIndex);
+        CommiserateTree.failChord(chordIndex, DotManager.CURRENT_EMOTION == Emotion.Despair);
     }
 
     void checkClicked()
@@ -50,20 +58,28 @@ public class Dot : MonoBehaviour
         DestroySelf();
     }
 
-    public void initialize(int pathIndex, float speedIn, int chordIn, Color32 colourIn)
+    public void initialize(int pathIndex, float speedIn, int chordIn, Emotion emotion)
     {
         image = GetComponent<RawImage>();
+        ChordManager.CHORD_STRUMMED[chordIndex] += checkClicked;
         path = ALL_PATHS[pathIndex];
         chordIndex = chordIn;
         speed = speedIn;
-        image.color = colourIn;
-        ChordManager.CHORD_STRUMMED[chordIndex] += checkClicked;
+        image.color = emotion.ChordColor();
+        pessimistic = emotion == Emotion.Pessimism;
+        
         nextNode();
     }
 
     void DestroySelf()
     {
         ChordManager.CHORD_STRUMMED[chordIndex] -= checkClicked;
+        DotManager.removeDot(this);
         Destroy(gameObject);
+    }
+
+    private float pessimistAlpha()
+    {
+        return Mathf.Sin(DotManager.DELTA_TIME * 6f) / 2f + 0.5f;
     }
 }
