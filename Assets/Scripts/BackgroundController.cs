@@ -28,6 +28,8 @@ public class BackgroundController : MonoBehaviour
         rightPane = transform.GetChild(1).gameObject;
         
         leftCharacter = generateCharacter(leftPane, 0f, 0);
+
+        EventManager.GENERATE_ROOM += generateNewRoom;
         
     }
 
@@ -35,8 +37,8 @@ public class BackgroundController : MonoBehaviour
     private void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.G))
-            generateNewRoom();
+        // if (Input.GetKeyDown(KeyCode.G))
+        //     generateNewRoom();
 
     }
 
@@ -86,6 +88,7 @@ public class BackgroundController : MonoBehaviour
 
                     leftCharacter = rightCharacter;
 
+                    EventManager.TRANSITION_COMPLETED = true;
 
                  });
 

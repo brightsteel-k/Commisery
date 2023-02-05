@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.G))
+            EventManager.GenerateRoom();
         
     }
 
@@ -32,4 +35,5 @@ public class GameManager : MonoBehaviour
         else
             EventManager.FailCommiserate();
     }
+
 }

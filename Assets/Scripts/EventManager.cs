@@ -10,6 +10,10 @@ public class EventManager
     public static event Action<Emotion> START_COMMISERATE;
     public static event Action FAIL_COMMISERATE;
 
+    public static bool TRANSITION_COMPLETED;
+
+    public static event Action GENERATE_ROOM;
+
     public static void StartCommiserate(Emotion e)
     {
         COMMISERATING = true;
@@ -20,4 +24,11 @@ public class EventManager
     {
         FAIL_COMMISERATE?.Invoke();
     }
+
+    public static void GenerateRoom() 
+    {
+        TRANSITION_COMPLETED = false;
+        GENERATE_ROOM?.Invoke();
+    }
+
 }
