@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     {
         CURRENT_EMOTIONS = new List<Emotion>();
         CURRENT_EMOTIONS.Add(Emotion.Sadness);
-        CURRENT_EMOTIONS.Add(Emotion.Envy);
+        CURRENT_EMOTIONS.Add(Emotion.Despair);
+        CURRENT_EMOTIONS.Add(Emotion.Pessimism);
     }
 
     public static void tryCommiserateEmotion(Emotion emotion)
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
         if (CURRENT_EMOTIONS.Contains(emotion))
             EventManager.StartCommiserate(emotion);
         else
-            EventManager.FailCommiserate();
+            EventManager.CommiserateLose();
     }
 
 }
