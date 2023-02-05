@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public static void nextInterlocutor()
     {
         CURRENT_EMOTIONS = new List<Emotion>();
-        CURRENT_EMOTIONS.Add(Emotion.Sadness);
+        CURRENT_EMOTIONS.Add(Emotion.Envy);
         CURRENT_EMOTIONS.Add(Emotion.Despair);
         CURRENT_EMOTIONS.Add(Emotion.Pessimism);
     }
