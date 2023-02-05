@@ -16,20 +16,13 @@ public class GameManager : MonoBehaviour
         ROUNDS = 0;
 
         CURRENT_EMOTIONS = new List<Emotion>();
-
+        
         nextInterlocutor();
         EventManager.StartRoom();
 
     }
 
-    void Update() {
-
-        if (Input.GetKeyDown(KeyCode.H))
-            EventManager.CommiserateLose();
-
-    }
-
-    public void generateNewRoom() {
+    public static void generateNewRoom() {
         EventManager.GenerateRoom();
         nextInterlocutor();
     }
@@ -56,9 +49,9 @@ public class GameManager : MonoBehaviour
 
         } else {
 
-            CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
-            CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
-            CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
+            for (int i = 0; i < Random.Range(1, 5); i++) {
+                CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
+            }
 
         }
 
@@ -71,7 +64,15 @@ public class GameManager : MonoBehaviour
         if (CURRENT_EMOTIONS.Contains(emotion))
             EventManager.StartCommiserate(emotion);
         else
-            EventManager.CommiserateLose();
+            handleIncorrectChoice(emotion);
+
+    }
+
+    public static void handleIncorrectChoice(Emotion e) {
+
+        FAILED_EMOTION = e;
+        EventManager.CommiserateLose();
+
     }
 
 }
