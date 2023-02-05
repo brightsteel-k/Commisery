@@ -11,22 +11,13 @@ public class Dot : MonoBehaviour
     private int chordIndex;
     private RawImage image;
     [SerializeField] private float speed;
-
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool clickable = false;
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.localPosition.y <= 288)
-        {
-            Debug.Log("Clickable!");
-        }
+        if (transform.localPosition.y <= 288 && !clickable)
+            clickable = true;
     }
 
     void nextNode()
@@ -48,8 +39,16 @@ public class Dot : MonoBehaviour
     void finishPath()
     {
         ChordManager.chordFailure(chordIndex);
+        CommiserateTree.failChord(chordIndex);
     }
 
+    void checkClicked()
+    {
+        if (!clickable)
+            return;
+
+        DestroySelf();
+    }
 
     public void initialize(int pathIndex, float speedIn, int chordIn, Color32 colourIn)
     {
@@ -58,6 +57,13 @@ public class Dot : MonoBehaviour
         chordIndex = chordIn;
         speed = speedIn;
         image.color = colourIn;
+        ChordManager.CHORD_STRUMMED[chordIndex] += checkClicked;
         nextNode();
+    }
+
+    void DestroySelf()
+    {
+        ChordManager.CHORD_STRUMMED[chordIndex] -= checkClicked;
+        Destroy(gameObject);
     }
 }

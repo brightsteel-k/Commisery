@@ -24,8 +24,7 @@ public class CommiserateTree : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-            easeTreeIn();
+        
     }
 
     void easeTreeIn() {
@@ -64,6 +63,6 @@ public class CommiserateTree : MonoBehaviour
 
     public static void failChord(int index)
     {
-        
+        // Insanify but when it's static
     }
 }

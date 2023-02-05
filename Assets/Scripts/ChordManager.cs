@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ChordManager : MonoBehaviour
 {
     [SerializeField] private Animator[] chordAnimators;
     [SerializeField] private Image[] chordImages;
+    public static Action[] CHORD_STRUMMED = new Action[4];
+    
     static ChordManager INSTANCE;
     public static Color32 CURRENT_COLOR = Color.white;
 
@@ -22,16 +25,22 @@ public class ChordManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
-            chordAnimators[0].SetTrigger("Strummed");
+            strumChord(0);
 
         if (Input.GetKeyDown(KeyCode.S))
-            chordAnimators[1].SetTrigger("Strummed");
+            strumChord(1);
 
         if (Input.GetKeyDown(KeyCode.D))
-            chordAnimators[2].SetTrigger("Strummed");
+            strumChord(2);
 
         if (Input.GetKeyDown(KeyCode.F))
-            chordAnimators[3].SetTrigger("Strummed");
+            strumChord(3);
+    }
+
+    void strumChord(int index)
+    {
+        chordAnimators[index].SetTrigger("Strummed");
+        CHORD_STRUMMED[index]?.Invoke();
     }
 
     void onCommiserateStart(Emotion emotion)

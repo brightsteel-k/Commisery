@@ -94,9 +94,4 @@ public class DotManager : MonoBehaviour
         d.initialize(path, 150, path % 4, CURRENT_EMOTION.ChordColor());
         ACTIVE_DOTS.Add(d);
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("DETECTED");
-    }
 }
