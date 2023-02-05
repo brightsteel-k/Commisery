@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SanitySlider : MonoBehaviour
 {
-
+    public static float TOTAL_SANITY = 1f;
     private Slider slider;
 
     private void Awake()
@@ -43,12 +43,12 @@ public class SanitySlider : MonoBehaviour
     // :)
     public void insanify(float n) {
 
+        LeanTween.cancel(gameObject);
         float startValue = slider.value;
+        TOTAL_SANITY = Mathf.Max(0f, TOTAL_SANITY - n);
 
-        LeanTween.value(gameObject, 0, Math.Abs(n), 3.3f)
-                     .setEase(LeanTweenType.linear)
-                     .setOnUpdate((float val) => {
-                slider.value = startValue + (n > 0 ? val : -val);
-            });
+        LeanTween.value(gameObject, startValue, 1f - TOTAL_SANITY, 3.3f)
+                     .setEase(LeanTweenType.easeOutQuint)
+                     .setOnUpdate((float val) => slider.value = val);
     }
 }

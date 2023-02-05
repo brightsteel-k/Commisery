@@ -11,6 +11,8 @@ public class ChordManager : MonoBehaviour
     [SerializeField] private AudioSource[] chordAudios;
     public static Action[] CHORD_STRUMMED = new Action[4];
 
+    private static AudioClip soundFail;
+
     static ChordManager INSTANCE;
     public static Color32 CURRENT_COLOR = Color.white;
 
@@ -25,6 +27,7 @@ public class ChordManager : MonoBehaviour
     {
         INSTANCE = GetComponent<ChordManager>();
         ResetChordColors();
+        soundFail = Resources.Load<AudioClip>("Sounds/Mistake");
     }
 
     // Update is called once per frame
@@ -64,14 +67,9 @@ public class ChordManager : MonoBehaviour
         else
         {
             if (DotManager.checkChordStrum(index))
-            {
                 chordAudios[index].Play();
-            }
             else
-            {
-                // Audio 2
                 chordFailure(index);
-            }
         }
     }
 
@@ -86,8 +84,10 @@ public class ChordManager : MonoBehaviour
 
     public static void chordFailure(int index)
     {
+        INSTANCE.chordAudios[index].PlayOneShot(soundFail);
         Image i = INSTANCE.chordImages[index];
         i.CrossFadeColor(Color.black, 0f, false, false);
         i.CrossFadeColor(CURRENT_COLOR, 1f, false, false);
+        EventManager.Insanify(0.1f);
     }
 }
