@@ -22,4 +22,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void EndStory()
+    {
+        SceneManager.LoadScene(2);
+    }
 }

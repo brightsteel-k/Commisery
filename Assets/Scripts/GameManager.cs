@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static List<Emotion> CURRENT_EMOTIONS;
 
+    public static Emotion FAILED_EMOTION;
+
     private static int ROUNDS;
 
     // Start is called before the first frame update
@@ -17,6 +19,13 @@ public class GameManager : MonoBehaviour
 
         nextInterlocutor();
         EventManager.StartRoom();
+
+    }
+
+    void Update() {
+
+        if (Input.GetKeyDown(KeyCode.H))
+            EventManager.CommiserateLose();
 
     }
 

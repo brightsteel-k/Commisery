@@ -21,6 +21,7 @@ public class BackgroundController : MonoBehaviour
     private void Awake()
     {
         EventManager.GENERATE_ROOM += generateNewRoom;
+        EventManager.COMMISERATE_LOSE += reactCharacter;
     }
 
     // Start is called before the first frame update
@@ -33,14 +34,6 @@ public class BackgroundController : MonoBehaviour
         rightPane = transform.GetChild(1).gameObject;
         
         leftCharacter = generateCharacter(leftPane, 0f, 0);
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
-        // if (Input.GetKeyDown(KeyCode.G))
-        //     generateNewRoom();
 
     }
 
@@ -77,8 +70,8 @@ public class BackgroundController : MonoBehaviour
 
         gameObject.transform.position = new Vector3(0, 0, 0);
         
-        LeanTween.moveX(gameObject, -20.498f, 4.0f)
-                 .setEase(LeanTweenType.easeInOutCubic)
+        LeanTween.moveX(gameObject, -20.498f, 6.0f)
+                 .setEase(LeanTweenType.easeInOutQuart)
                  .setOnComplete(() => { 
 
                     Destroy(leftCharacter);
@@ -91,6 +84,22 @@ public class BackgroundController : MonoBehaviour
                     leftCharacter = rightCharacter;
 
                     EventManager.StartRoom();
+
+                 });
+
+    }
+
+
+    void reactCharacter() {
+
+        Vector3 initialLoc = leftCharacter.transform.position;
+        
+        LeanTween.moveX(leftCharacter, 0.3f, 0.2f)
+                 .setEase(LeanTweenType.easeShake)
+                 .setOnComplete(() => {
+
+                    LeanTween.moveX(leftCharacter, 0.2f, 0.2f)
+                        .setEase(LeanTweenType.easeShake);
 
                  });
 
