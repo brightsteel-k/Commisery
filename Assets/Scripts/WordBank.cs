@@ -11,7 +11,7 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Vector3[] originalVertices;
     private Vector3[] vertices;
     private float tick = 0;
-    private string selectedEmotion = "";
+    private Emotion selectedEmotion;
     private Color32 gray = new Color32(192, 192, 192, 255);
     [SerializeField] private Material fontRegular;
     [SerializeField] private Material fontHighlight;
@@ -21,7 +21,8 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         tmp = GetComponent<TextMeshProUGUI>();
         mesh = tmp.mesh;
-        setWord("");
+        setWord(Emotion.None);
+        EventManager.START_COMMISERATE += onStartCommiserate;
     }
 
     // Update is called once per frame
@@ -31,10 +32,14 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         animateWord();
     }
 
-    public void setWord(string emotion)
+    public void setWord(Emotion emotion)
     {
         selectedEmotion = emotion;
-        tmp.SetText(emotion);
+        if (selectedEmotion == Emotion.None)
+            tmp.SetText("");
+        else
+            tmp.SetText(emotion.ToString());
+
         tmp.ForceMeshUpdate();
         originalVertices = mesh.vertices;
     }
@@ -59,7 +64,7 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (selectedEmotion == "")
+        if (selectedEmotion == Emotion.None)
             return;
         tmp.color = Color.white;
         tmp.fontMaterial = fontHighlight;
@@ -73,6 +78,11 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("SELECTED: " + selectedEmotion);
+        GameManager.tryCommiserateEmotion(selectedEmotion);
+    }
+
+    void onStartCommiserate(Emotion emotion)
+    {
+
     }
 }

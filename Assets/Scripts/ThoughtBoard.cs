@@ -5,67 +5,72 @@ using UnityEngine;
 public class ThoughtBoard : MonoBehaviour
 {
     [SerializeField] WordBank wordBank;
-    string chosen;
+    Emotion chosen;
 
     void Update()
     {
-        chosen = readChordInput();
+        if (!EventManager.COMMISERATING)
+        {
+            chosen = readInitialChordInput();
 
-        if (chosen != "")
-            wordBank.setWord(chosen);
+            if (chosen != Emotion.None)
+                wordBank.setWord(chosen);
+        }
 
     }
 
-    string readChordInput()
+    Emotion readInitialChordInput()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (Input.GetKey(KeyCode.S))
-                return "Envy";
+                return Emotion.Envy;
             else if (Input.GetKey(KeyCode.D))
-                return "Aggression";
+                return Emotion.Aggression;
             else if (Input.GetKey(KeyCode.F))
-                return "N/A";
+                return Emotion.Powerless;
             else
-                return "Anger";
+                return Emotion.Anger;
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
             if (Input.GetKey(KeyCode.A))
-                return "Envy";
+                return Emotion.Envy;
             else if (Input.GetKey(KeyCode.D))
-                return "Pessimism";
+                return Emotion.Pessimism;
             else if (Input.GetKey(KeyCode.F))
-                return "Despair";
+                return Emotion.Despair;
             else
-                return "Sadness";
+                return Emotion.Sadness;
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
             if (Input.GetKey(KeyCode.A))
-                return "Aggression";
+                return Emotion.Aggression;
             else if (Input.GetKey(KeyCode.S))
-                return "Pessimism";
+                return Emotion.Pessimism;
             else if (Input.GetKey(KeyCode.F))
-                return "Anxiety";
+                return Emotion.Anxiety;
             else
-                return "Anticipation";
+                return Emotion.Anticipation;
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (Input.GetKey(KeyCode.A))
-                return "N/A";
+                return Emotion.Powerless;
             else if (Input.GetKey(KeyCode.S))
-                return "Despair";
+                return Emotion.Despair;
             else if (Input.GetKey(KeyCode.D))
-                return "Anxiety";
+                return Emotion.Anxiety;
             else
-                return "Fear";
+                return Emotion.Fear;
         }
 
-        return "";
+        return Emotion.None;
     }
+
+
 }
