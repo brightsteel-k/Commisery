@@ -12,7 +12,7 @@ public class DotManager : MonoBehaviour
     private static Vector2[] ALL_NODES;
     private static Emotion CURRENT_EMOTION;
     private static DotManager INSTANCE;
-    private static List<Dot> ACTIVE_DOTS;
+    private static List<Dot> ACTIVE_DOTS = new List<Dot>();
 
     // Start is called before the first frame update
     void Start()
@@ -20,13 +20,12 @@ public class DotManager : MonoBehaviour
         PREFAB_DOT = Resources.Load<GameObject>("Prefabs/CommiserateDot");
         initializeNodes(serializedNodes);
         initializePaths();
-        INSTANCE = this;
+        INSTANCE = GetComponent<DotManager>();
         LeanTween.init(800);
     }
 
     static void initializeNodes(TextAsset t)
     {
-        Debug.Log(t.text);
         float[][] nodeRecords = JsonConvert.DeserializeObject<float[][]>(t.text);
 
         ALL_NODES = new Vector2[nodeRecords.Length];
@@ -81,7 +80,6 @@ public class DotManager : MonoBehaviour
 
     IEnumerator spawnDots()
     {
-        Debug.Log("SpawnDots");
         foreach ((int, float) dotPlan in CURRENT_SEQUENCE)
         {
             INSTANCE.SpawnDot(dotPlan.Item1);
@@ -94,5 +92,11 @@ public class DotManager : MonoBehaviour
         Vector2 startPos = ALL_NODES[0];
         Dot d = Instantiate(PREFAB_DOT, startPos, Quaternion.identity, transform).GetComponent<Dot>();
         d.initialize(path, 150, Color.gray);
+        ACTIVE_DOTS.Add(d);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("DETECTED");
     }
 }
