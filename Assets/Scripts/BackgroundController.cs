@@ -40,7 +40,7 @@ public class BackgroundController : MonoBehaviour
 
     public void generateNewRoom() {
 
-        rightCharacter = generateCharacter(rightPane, 20.498f, 1);
+        rightCharacter = generateCharacter(rightPane, 20.498f, Random.Range(1, sprites.Length));
 
         translatePanes();
 

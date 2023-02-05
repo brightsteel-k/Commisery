@@ -57,21 +57,26 @@ public class Dot : MonoBehaviour
         speed = speedIn;
         image.color = emotion.ChordColor();
         pessimistic = emotion == Emotion.Pessimism;
-        
+        EventManager.COMMISERATE_LOSE += DestroySelf;
+
         nextNode();
     }
 
     public void DestroySelf()
     {
+        LeanTween.cancel(gameObject);
         DotManager.removeDot(this);
         if (clickable)
             DotManager.DOTS_IN_RANGE[chordIndex].Remove(this);
+        EventManager.COMMISERATE_LOSE -= DestroySelf;
         Destroy(gameObject);
     }
 
     public void GetDestroyed()
     {
+        LeanTween.cancel(gameObject);
         DotManager.removeDot(this);
+        EventManager.COMMISERATE_LOSE -= DestroySelf;
         Destroy(gameObject);
     }
 

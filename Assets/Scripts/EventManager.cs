@@ -26,14 +26,14 @@ public class EventManager
 
     public static void CommiserateWin()
     {
+        COMMISERATING = false;
         COMMISERATE_WIN?.Invoke();
         GameManager.COMMISERATE_SUCCESSES += 1;
     }
     public static void CommiserateLose()
     {
-        EventManager.Insanify(0.1f);
+        COMMISERATING = false;
         COMMISERATE_LOSE?.Invoke();
-        GameManager.generateNewRoom();
     }
     public static void GenerateRoom() 
     {
