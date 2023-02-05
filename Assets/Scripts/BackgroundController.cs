@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
-
+    private AudioSource audioSource;
     private GameObject leftPane;
     private GameObject rightPane;
 
@@ -27,7 +27,7 @@ public class BackgroundController : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
         gameObject.transform.position = new Vector3(0, 0, 0);
 
         leftPane = transform.GetChild(0).gameObject;
@@ -41,7 +41,7 @@ public class BackgroundController : MonoBehaviour
     public void generateNewRoom() {
 
         rightCharacter = generateCharacter(rightPane, 20.498f, Random.Range(1, sprites.Length));
-
+        audioSource.Play();
         translatePanes();
 
     }

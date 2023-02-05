@@ -53,7 +53,8 @@ public class DotManager : MonoBehaviour
 
         if (DOTS_SPAWNED && ACTIVE_DOTS.Count == 0)
         {
-            CommiserateTree.succeedCommiserate();
+            EventManager.COMMISERATING = false;
+            EventManager.CommiserateWin();
             Nebula.removeEmotion(CURRENT_EMOTION);
             GameManager.CURRENT_EMOTIONS.Remove(CURRENT_EMOTION);
         }

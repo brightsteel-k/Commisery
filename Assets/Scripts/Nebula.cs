@@ -91,13 +91,13 @@ public class Nebula : MonoBehaviour
     public static void removeEmotion(Emotion emotion)
     {
         GameObject g = ACTIVE_ORBS[emotion];
-        g.GetComponent<Image>().CrossFadeAlpha(0f, 0.3f, false);
-        LeanTween.moveLocalY(g, g.transform.localPosition.y, 0.4f)
+        g.GetComponent<Image>().CrossFadeAlpha(0f, 0.5f, false);
+        LeanTween.moveLocalY(g, g.transform.localPosition.y, 1.2f)
             .setEaseOutSine()
             .setOnComplete(e => {
                 Destroy(g);
-                GameManager.generateNewRoom();
                 ChordManager.enableInteraction();
+                GameManager.commiserateWin();
             });
 
         ACTIVE_ORBS.Remove(emotion);

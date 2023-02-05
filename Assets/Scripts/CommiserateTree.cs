@@ -15,6 +15,7 @@ public class CommiserateTree : MonoBehaviour
     private void Awake()
     {
         EventManager.START_COMMISERATE += onCommiserateStart;
+        EventManager.COMMISERATE_WIN += succeedCommiserate;
     }
 
     // Start is called before the first frame update
@@ -89,6 +90,5 @@ public class CommiserateTree : MonoBehaviour
         INSTANCE.audioSource.Play();
         ChordManager.resetChordColors();
         ChordManager.disableInteraction();
-        EventManager.CommiserateWin();
     }
 }

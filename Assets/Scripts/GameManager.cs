@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.COMMISERATE_WIN += generateNewRoom;
+        
     }
 
     // Start is called before the first frame update
@@ -29,6 +29,12 @@ public class GameManager : MonoBehaviour
         nextInterlocutor();
         EventManager.StartRoom();
 
+    }
+
+    public static void commiserateWin()
+    {
+        if (CURRENT_EMOTIONS.Count <= 0)
+            generateNewRoom();
     }
 
     public static void generateNewRoom() {
