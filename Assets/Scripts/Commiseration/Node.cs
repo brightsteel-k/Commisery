@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Node : MonoBehaviour
 {
@@ -23,5 +24,29 @@ public class Node : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnDrawGizmos()
+    {
+        
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        
+    }
+
+    // FOR DEBUG PURPOSES ONLY
+    void debugSetLabels()
+    {
+        GameObject g = new GameObject();
+        g.transform.position = transform.position;
+        TextMeshProUGUI tmp = g.AddComponent<TextMeshProUGUI>();
+        tmp.SetText(id.ToString());
+        tmp.fontSize = 25;
+        tmp.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        tmp.verticalAlignment = VerticalAlignmentOptions.Middle;
+        tmp.color = Color.black;
+        g.transform.parent = transform;
     }
 }

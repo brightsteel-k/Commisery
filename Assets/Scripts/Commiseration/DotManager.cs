@@ -22,7 +22,7 @@ public class DotManager : MonoBehaviour
         PREFAB_DOT = Resources.Load<GameObject>("Prefabs/CommiserateDot");
         initializePaths();
         LeanTween.init(800);
-        Instantiate(PREFAB_DOT, Vector3.zero, Quaternion.identity, transform).GetComponent<Dot>().setPath(0);
+        //Instantiate(PREFAB_DOT, Vector3.zero, Quaternion.identity, transform).GetComponent<Dot>().setPath(0);
     }
 
     void initializePaths()
