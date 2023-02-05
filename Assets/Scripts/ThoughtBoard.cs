@@ -10,6 +10,7 @@ public class ThoughtBoard : MonoBehaviour
     [SerializeField] ChordManager cm;
     [SerializeField] Button sb;
     [SerializeField] GameObject sanityOverlay;
+    [SerializeField] GameObject nebula;
     Emotion chosen;
 
     void Start() {
@@ -36,6 +37,9 @@ public class ThoughtBoard : MonoBehaviour
             wordBank.enabled = true;
             sb.enabled = true;
             cm.enabled = true;
+            print(nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color);
+            nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.white;
+            nebula.transform.GetChild(1).gameObject.GetComponent<Image>().color = Color.white;
             sanityOverlay.SetActive(false);
             transform.GetChild(3).gameObject.SetActive(false);
 
@@ -103,6 +107,9 @@ public class ThoughtBoard : MonoBehaviour
         wordBank.gameObject.GetComponent<TextMeshProUGUI>().enabled = false;
         sb.enabled = false;
         cm.enabled = false;
+        print(nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color);
+        nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(29f/255f, 29f/255f, 29f/255f, 255f);
+        nebula.transform.GetChild(1).gameObject.GetComponent<Image>().color = new Color(29f/255f, 29f/255f, 29f/255f, 255f);
         sanityOverlay.SetActive(true);
         transform.GetChild(3).gameObject.SetActive(true);
 
