@@ -10,6 +10,7 @@ public class ChordManager : MonoBehaviour
     [SerializeField] private Image[] chordImages;
     [SerializeField] private AudioSource[] chordAudios;
     public static Action[] CHORD_STRUMMED = new Action[4];
+    public static bool INTERACTABLE = true;
 
     private static AudioClip soundFail;
 
@@ -20,13 +21,15 @@ public class ChordManager : MonoBehaviour
     private void Awake()
     {
         EventManager.START_COMMISERATE += onCommiserateStart;
+        EventManager.GENERATE_ROOM += disableInteraction;
+        EventManager.GENERATE_ROOM += enableInteraction;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         INSTANCE = GetComponent<ChordManager>();
-        ResetChordColors();
+        resetChordColors();
         soundFail = Resources.Load<AudioClip>("Sounds/Mistake");
     }
 
@@ -46,17 +49,17 @@ public class ChordManager : MonoBehaviour
             strumChord(3);
     }
 
-    void ResetChordColors()
+    public static void resetChordColors()
     {
-        chordImages[0].CrossFadeColor(Emotion.Anger.ChordColor(), 0.5f, false, false);
-        chordImages[1].CrossFadeColor(Emotion.Sadness.ChordColor(), 0.5f, false, false);
-        chordImages[2].CrossFadeColor(Emotion.Anticipation.ChordColor(), 0.5f, false, false);
-        chordImages[3].CrossFadeColor(Emotion.Fear.ChordColor(), 0.5f, false, false);
+        INSTANCE.chordImages[0].CrossFadeColor(Emotion.Anger.ChordColor(), 0.5f, false, false);
+        INSTANCE.chordImages[1].CrossFadeColor(Emotion.Sadness.ChordColor(), 0.5f, false, false);
+        INSTANCE.chordImages[2].CrossFadeColor(Emotion.Anticipation.ChordColor(), 0.5f, false, false);
+        INSTANCE.chordImages[3].CrossFadeColor(Emotion.Fear.ChordColor(), 0.5f, false, false);
     }
 
     void strumChord(int index)
     {
-        if (!EventManager.TRANSITION_COMPLETED)
+        if (!INTERACTABLE)
             return;
 
         chordAnimators[index].SetTrigger("Strummed");
@@ -89,5 +92,15 @@ public class ChordManager : MonoBehaviour
         i.CrossFadeColor(Color.black, 0f, false, false);
         i.CrossFadeColor(CURRENT_COLOR, 1f, false, false);
         DotManager.missDot();
+    }
+
+    public static void enableInteraction()
+    {
+        INTERACTABLE = true;
+    }
+
+    public static void disableInteraction()
+    {
+        INTERACTABLE = false;
     }
 }

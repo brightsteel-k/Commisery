@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
 
     private static int ROUNDS;
 
+    private void Awake()
+    {
+        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,8 +76,8 @@ public class GameManager : MonoBehaviour
     public static void handleIncorrectChoice(Emotion e) {
 
         FAILED_EMOTION = e;
+        EventManager.Insanify(0.1f);
         EventManager.CommiserateLose();
-
     }
 
 }

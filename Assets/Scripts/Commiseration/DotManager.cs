@@ -27,6 +27,10 @@ public class DotManager : MonoBehaviour
     private static float timeThreshold = 2;
     private static float difficulty = 1;
 
+    private void Awake()
+    {
+         
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -156,9 +160,12 @@ public class DotManager : MonoBehaviour
     {
         foreach ((int, float) dotPlan in CURRENT_SEQUENCE)
         {
+            if (!EventManager.COMMISERATING)
+                break;
             INSTANCE.spawnDot(dotPlan.Item1);
             yield return new WaitForSeconds(dotPlan.Item2);
         }
+        yield return null;
     }
     
     void spawnDot(int path)
