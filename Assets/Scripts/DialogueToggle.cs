@@ -6,20 +6,19 @@ using TMPro;
 public class DialogueToggle : MonoBehaviour
 {
 
-    Animator animator;
+    bool toggled;
 
     TMP_Text dialogue;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
 
-        dialogue = transform.GetChild(0).gameObject.GetComponent(typeof(TMP_Text)) as TMP_Text;
+        toggled = false;
+
+        dialogue = transform.GetChild(1).gameObject.GetComponent(typeof(TMP_Text)) as TMP_Text;
 
         dialogue.text = "";
-
-        Debug.Log(animator.GetBool("keyPressed"));
 
     }
 
@@ -29,12 +28,16 @@ public class DialogueToggle : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J)) {
 
-            Debug.Log(animator.GetBool("keyPressed"));
-            animator.SetBool( "keyPressed", animator.GetBool("keyPressed") ? false : true );
+            toggled = toggled ? false : true;
+
+            if (toggled)
+                LeanTween.scale(this.gameObject, new Vector3(1, 1, 1), 1.0f).setEase( LeanTweenType.easeOutQuint );
+            else
+                LeanTween.scale(this.gameObject, new Vector3(0, 0, 0), 1.0f).setEase( LeanTweenType.easeOutQuint );
 
         }
 
-        if (animator.GetBool("keyPressed") && Input.GetKeyDown(KeyCode.K)) {
+        if (toggled && Input.GetKeyDown(KeyCode.K)) {
 
             generateRandomSymbols();
 
