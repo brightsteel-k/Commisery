@@ -32,20 +32,26 @@ public class CommiserateTree : MonoBehaviour
 
     void easeTreeIn() {
 
-        LeanTween.move(background.gameObject, background.transform.position + new Vector3(0f, -800f, 0f), 3.3f).setEase(LeanTweenType.easeOutQuad);
         LeanTween.move(gameObject, transform.position + new Vector3(0f, 1080f, 0f), 2.0f)
             .setEase(LeanTweenType.easeOutSine);
-
+        LeanTween.move(background.gameObject, background.transform.position - new Vector3(0f, 800f, 0f), 3.3f).setEase(LeanTweenType.easeOutQuad)
+            .setOnComplete(ChordManager.enableInteraction);
+    }
+    void easeTreeOut()
+    {
+        LeanTween.move(gameObject, transform.position - new Vector3(0f, 1080f, 0f), 0.2f);
+        LeanTween.move(background.gameObject, background.transform.position + new Vector3(0f, 800f, 0f), 0.4f).setEase(LeanTweenType.easeOutSine);
     }
 
     private void onCommiserateStart(Emotion e)
     {
         setOverlayActive(true);
+        ChordManager.disableInteraction();
         easeTreeIn();
         LeanTween.delayedCall(2.2f, c => DotManager.startCommiserate(e));
     }
 
-    private void setOverlayActive(bool active)
+    public void setOverlayActive(bool active)
     {
         if (active)
         {
@@ -64,8 +70,13 @@ public class CommiserateTree : MonoBehaviour
         }
     }
 
-    public static void failChord(int index, bool despair)
+    public static void failCommiserate(bool despair)
     {
+        INSTANCE.easeTreeOut();
+        INSTANCE.setOverlayActive(false);
+        ChordManager.resetChordColors();
+        GameManager.FAILED_EMOTION = DotManager.CURRENT_EMOTION;
         EventManager.Insanify(despair ? 0.4f : 0.1f);
+        EventManager.CommiserateLose();
     }
 }
