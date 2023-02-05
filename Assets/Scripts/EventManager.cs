@@ -12,6 +12,7 @@ public class EventManager
 
     public static void StartCommiserate(Emotion e)
     {
+        COMMISERATING = true;
         START_COMMISERATE?.Invoke(e);
     }
 

@@ -64,7 +64,6 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Select!");
         if (EventManager.COMMISERATING || selectedEmotion == Emotion.None)
             return;
         tmp.color = Color.white;
