@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        CURRENT_EMOTIONS = new List<Emotion>();
+        nextInterlocutor();
+
         EventManager.StartRoom();
         nextInterlocutor();
     }
@@ -28,10 +32,10 @@ public class GameManager : MonoBehaviour
 
     public static void nextInterlocutor()
     {
-        CURRENT_EMOTIONS = new List<Emotion>();
-        CURRENT_EMOTIONS.Add(Emotion.Envy);
-        CURRENT_EMOTIONS.Add(Emotion.Despair);
-        CURRENT_EMOTIONS.Add(Emotion.Pessimism);
+        CURRENT_EMOTIONS.Clear();
+        CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
+        CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
+        CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
     }
 
     public static void tryCommiserateEmotion(Emotion emotion)
