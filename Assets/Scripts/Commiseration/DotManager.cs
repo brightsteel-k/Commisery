@@ -5,32 +5,34 @@ using UnityEngine;
 public class DotManager : MonoBehaviour
 {
     private GameObject PREFAB_DOT;
-
-    [SerializeField] private int[] path0;
-    [SerializeField] private int[] path1;
-    [SerializeField] private int[] path2;
-    [SerializeField] private int[] path3;
-    [SerializeField] private int[] path4;
-    [SerializeField] private int[] path5;
-    [SerializeField] private int[] path6;
-    [SerializeField] private int[] path7;
-    [SerializeField] private int[] path8;
+    private static List<(int, float)> CURRENT_SEQUENCE;
+    private static Emotion CURRENT_EMOTION;
+    private static DotManager INSTANCE;
+    private static List<Dot> ACTIVE_DOTS;
 
     // Start is called before the first frame update
     void Start()
     {
         PREFAB_DOT = Resources.Load<GameObject>("Prefabs/CommiserateDot");
         initializePaths();
+        INSTANCE = this;
         LeanTween.init(800);
         //Instantiate(PREFAB_DOT, Vector3.zero, Quaternion.identity, transform).GetComponent<Dot>().setPath(0);
     }
 
-    void initializePaths()
+    static void initializePaths()
     {
-        initalizePath(path0, 0);
+        initalizePath(0, new int[] { 0, 1, 2, 34, 37, 38, 39, 19, 9, 10, 11, 12, 13, 14 }); // Chord 0, path A
+        initalizePath(1, new int[] { 0, 1, 40, 36, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 });// Chord 0, path B
+        initalizePath(2, new int[] { 0, 1, 2, 3, 4, 5, 33, 7, 31, 19, 9, 10, 15, 16, 17, 18 }); // Chord 1, path A
+        initalizePath(3, new int[] { 0, 1, 2, 34, 35, 36, 33, 8, 9, 10, 15, 16, 17, 18 }); // Chord 1, path B
+        initalizePath(4, new int[] { 0, 1, 40, 35, 37, 38, 39, 31, 32, 27, 21, 22, 23, 24, 25, 26 }); // Chord 2, path A
+        initalizePath(5, new int[] { 0, 1, 40, 36, 33, 7, 31, 19, 20, 22, 23, 24, 25, 26 }); // Chord 2, path B
+        initalizePath(6, new int[] { 0, 1, 40, 35, 37, 38, 39, 31, 7, 8, 20, 21, 27, 28, 29, 30 }); // Chord 3, path A
+        initalizePath(7, new int[] { 0, 1, 2, 34, 35, 36, 33, 7, 32, 28, 29, 30 }); // Chord 3, path B
     }
 
-    void initalizePath(int[] indices, int n)
+    static void initalizePath(int n, int[] indices)
     {
         List<Vector2> v = new List<Vector2>();
         foreach (int i in indices)
@@ -40,9 +42,42 @@ public class DotManager : MonoBehaviour
         Dot.ALL_PATHS[n] = v.ToArray();
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void startCommiserate(Emotion emotion)
     {
-        
+        CURRENT_EMOTION = emotion;
+        generateSequence();
+        Debug.Log("StartCommiserate");
+        INSTANCE.StartCoroutine("spawnDots");
+    }
+
+    static List<(int, float)> generateSequence()
+    {
+        CURRENT_SEQUENCE = new List<(int, float)>();
+        int length = 8;
+        float timeThreshold = 2;
+        float difficulty = 1;
+        for (int k = 0; k < length; k++)
+        {
+            CURRENT_SEQUENCE.Add((Random.Range(0, 8), Mathf.Pow(Random.Range(timeThreshold / 10f, 1f) * timeThreshold, difficulty)));
+        }
+
+        return CURRENT_SEQUENCE;
+    }
+
+    IEnumerator spawnDots()
+    {
+        Debug.Log("SpawnDots");
+        foreach ((int, float) dotPlan in CURRENT_SEQUENCE)
+        {
+            INSTANCE.SpawnDot(dotPlan.Item1);
+            yield return new WaitForSeconds(dotPlan.Item2);
+        }
+    }
+    
+    void SpawnDot(int path)
+    {
+        Vector2 startPos = Node.ALL_NODES[0];
+        Dot d = Instantiate(PREFAB_DOT, startPos, Quaternion.identity, transform).GetComponent<Dot>();
+        d.initialize(path, 150);
     }
 }

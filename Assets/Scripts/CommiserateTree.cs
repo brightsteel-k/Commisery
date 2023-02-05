@@ -28,7 +28,8 @@ public class CommiserateTree : MonoBehaviour
     void easeTreeIn() {
 
         LeanTween.move(background.gameObject, background.transform.position + new Vector3(0f, -800f, 0f), 3.3f).setEase(LeanTweenType.easeOutQuad);
-        LeanTween.move(gameObject, transform.position + new Vector3(0f, 1080f, 0f), 2.0f).setEase(LeanTweenType.easeOutSine);
+        LeanTween.move(gameObject, transform.position + new Vector3(0f, 1080f, 0f), 2.0f)
+            .setEase(LeanTweenType.easeOutSine);
 
     }
 
@@ -36,6 +37,7 @@ public class CommiserateTree : MonoBehaviour
     {
         setOverlayActive(true);
         easeTreeIn();
+        LeanTween.delayedCall(2.2f, c => DotManager.startCommiserate(e));
     }
 
     private void setOverlayActive(bool active)

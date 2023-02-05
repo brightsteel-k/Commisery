@@ -46,9 +46,10 @@ public class Dot : MonoBehaviour
     }
 
 
-    public void setPath(int p)
+    public void initialize(int pathIndex, float speedIn)
     {
-        path = ALL_PATHS[p];
+        path = ALL_PATHS[pathIndex];
+        speed = speedIn;
         nextNode();
     }
 }
