@@ -91,7 +91,7 @@ public class DotManager : MonoBehaviour
     {
         Vector2 startPos = ALL_NODES[0];
         Dot d = Instantiate(PREFAB_DOT, startPos, Quaternion.identity, transform).GetComponent<Dot>();
-        d.initialize(path, 150, path % 4, Color.gray);
+        d.initialize(path, 150, path % 4, CURRENT_EMOTION.ChordColor());
         ACTIVE_DOTS.Add(d);
     }
 
