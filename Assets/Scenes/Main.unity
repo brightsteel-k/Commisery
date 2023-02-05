@@ -1446,8 +1446,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2926301878279282978, guid: da526b520b3ca1147a68e039ba30859c, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926301878279282978, guid: da526b520b3ca1147a68e039ba30859c, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926301878279282978, guid: da526b520b3ca1147a68e039ba30859c, type: 3}
       propertyPath: m_TargetGraphic
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926301878279282978, guid: da526b520b3ca1147a68e039ba30859c, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2926301878279282979, guid: da526b520b3ca1147a68e039ba30859c, type: 3}
       propertyPath: m_Pivot.x
@@ -1459,7 +1471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2926301878279282979, guid: da526b520b3ca1147a68e039ba30859c, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2926301878279282979, guid: da526b520b3ca1147a68e039ba30859c, type: 3}
       propertyPath: m_AnchorMax.x
