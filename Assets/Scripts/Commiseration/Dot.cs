@@ -9,7 +9,7 @@ public class Dot : MonoBehaviour
         new Color32(229, 233, 233, 255),
         new Color32(112, 138, 140, 255)
     };
-    public static Vector2[][] ALL_PATHS = new Vector2[][] { null, null, null, null, null, null, null, null };
+    public static Vector2[][] ALL_PATHS = new Vector2[12][];
     private Vector2[] path;
     private int pathIndex = 0;
     private int chordIndex;
@@ -61,13 +61,13 @@ public class Dot : MonoBehaviour
     public void initialize(int pathIndex, float speedIn, int chordIn, Emotion emotion)
     {
         image = GetComponent<RawImage>();
-        ChordManager.CHORD_STRUMMED[chordIndex] += checkClicked;
         path = ALL_PATHS[pathIndex];
         chordIndex = chordIn;
         speed = speedIn;
         image.color = emotion.ChordColor();
         pessimistic = emotion == Emotion.Pessimism;
         
+        ChordManager.CHORD_STRUMMED[chordIndex] += checkClicked;
         nextNode();
     }
 
