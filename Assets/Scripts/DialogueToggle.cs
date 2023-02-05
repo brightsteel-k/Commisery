@@ -23,5 +23,18 @@ public class DialogueToggle : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.K)) {
+
+            generateRandomSymbols();
+
+        }
+
     }
+
+    void generateRandomSymbols() {
+
+        
+
+    }
+
 }
