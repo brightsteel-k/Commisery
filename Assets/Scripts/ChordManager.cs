@@ -8,8 +8,9 @@ public class ChordManager : MonoBehaviour
 {
     [SerializeField] private Animator[] chordAnimators;
     [SerializeField] private Image[] chordImages;
+    [SerializeField] private AudioSource[] chordAudios;
     public static Action[] CHORD_STRUMMED = new Action[4];
-    
+
     static ChordManager INSTANCE;
     public static Color32 CURRENT_COLOR = Color.white;
 
@@ -23,6 +24,7 @@ public class ChordManager : MonoBehaviour
     void Start()
     {
         INSTANCE = GetComponent<ChordManager>();
+        ResetChordColors();
     }
 
     // Update is called once per frame
@@ -41,13 +43,36 @@ public class ChordManager : MonoBehaviour
             strumChord(3);
     }
 
+    void ResetChordColors()
+    {
+        chordImages[0].CrossFadeColor(Emotion.Anger.ChordColor(), 0.5f, false, false);
+        chordImages[1].CrossFadeColor(Emotion.Sadness.ChordColor(), 0.5f, false, false);
+        chordImages[2].CrossFadeColor(Emotion.Anticipation.ChordColor(), 0.5f, false, false);
+        chordImages[3].CrossFadeColor(Emotion.Fear.ChordColor(), 0.5f, false, false);
+    }
+
     void strumChord(int index)
     {
         if (!EventManager.TRANSITION_COMPLETED)
             return;
 
         chordAnimators[index].SetTrigger("Strummed");
-        CHORD_STRUMMED[index]?.Invoke();
+        if (!EventManager.COMMISERATING)
+        {
+            chordAudios[index].Play();
+        }
+        else
+        {
+            if (DotManager.checkChordStrum(index))
+            {
+                chordAudios[index].Play();
+            }
+            else
+            {
+                // Audio 2
+                chordFailure(index);
+            }
+        }
     }
 
     void onCommiserateStart(Emotion emotion)
@@ -55,18 +80,14 @@ public class ChordManager : MonoBehaviour
         CURRENT_COLOR = emotion.ChordColor();
         foreach (Image img in chordImages)
         {
-            LeanTween.value(img.gameObject, img.color, CURRENT_COLOR, 1.5f)
-                .setEaseOutSine()
-                .setOnUpdateColor(c => img.color = c);
+            img.CrossFadeColor(CURRENT_COLOR, 1.5f, false, false);
         }
     }
 
     public static void chordFailure(int index)
     {
         Image i = INSTANCE.chordImages[index];
-        i.color = Color.black;
-        LeanTween.value(i.gameObject, Color.black, CURRENT_COLOR, 1f)
-            .setEaseOutQuad()
-            .setOnUpdateColor(c => i.color = c);
+        i.CrossFadeColor(Color.black, 0f, false, false);
+        i.CrossFadeColor(CURRENT_COLOR, 1f, false, false);
     }
 }

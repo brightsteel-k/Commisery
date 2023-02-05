@@ -70,8 +70,8 @@ public class BackgroundController : MonoBehaviour
 
         gameObject.transform.position = new Vector3(0, 0, 0);
         
-        LeanTween.moveX(gameObject, -20.498f, 4.0f)
-                 .setEase(LeanTweenType.easeInOutCubic)
+        LeanTween.moveX(gameObject, -20.498f, 6.0f)
+                 .setEase(LeanTweenType.easeInOutQuart)
                  .setOnComplete(() => { 
 
                     Destroy(leftCharacter);

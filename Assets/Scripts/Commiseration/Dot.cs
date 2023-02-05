@@ -17,8 +17,11 @@ public class Dot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.localPosition.y <= 288 && !clickable)
+        if (transform.localPosition.y <= 289 && !clickable)
+        {
+            DotManager.DOTS_IN_RANGE[chordIndex].Add(this);
             clickable = true;
+        }
 
         if (pessimistic)
             image.color = new Color(Emotions.PESSIMISM_FLASH.r, Emotions.PESSIMISM_FLASH.g, Emotions.PESSIMISM_FLASH.b, pessimistAlpha());
@@ -44,13 +47,6 @@ public class Dot : MonoBehaviour
     {
         ChordManager.chordFailure(chordIndex);
         CommiserateTree.failChord(chordIndex, DotManager.CURRENT_EMOTION == Emotion.Despair);
-    }
-
-    void checkClicked()
-    {
-        if (!clickable)
-            return;
-
         DestroySelf();
     }
 
@@ -63,13 +59,19 @@ public class Dot : MonoBehaviour
         image.color = emotion.ChordColor();
         pessimistic = emotion == Emotion.Pessimism;
         
-        ChordManager.CHORD_STRUMMED[chordIndex] += checkClicked;
         nextNode();
     }
 
-    void DestroySelf()
+    public void DestroySelf()
     {
-        ChordManager.CHORD_STRUMMED[chordIndex] -= checkClicked;
+        DotManager.removeDot(this);
+        if (clickable)
+            DotManager.DOTS_IN_RANGE[chordIndex].Remove(this);
+        Destroy(gameObject);
+    }
+
+    public void GetDestroyed()
+    {
         DotManager.removeDot(this);
         Destroy(gameObject);
     }

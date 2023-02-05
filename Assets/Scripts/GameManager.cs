@@ -20,7 +20,12 @@ public class GameManager : MonoBehaviour
         nextInterlocutor();
         EventManager.StartRoom();
 
-        FAILED_EMOTION = Emotion.Sadness;
+    }
+
+    void Update() {
+
+        if (Input.GetKeyDown(KeyCode.H))
+            EventManager.CommiserateLose();
 
     }
 
@@ -36,7 +41,9 @@ public class GameManager : MonoBehaviour
 
         if (ROUNDS == 0) {
 
-            CURRENT_EMOTIONS.Add(Emotion.Aggression);
+            CURRENT_EMOTIONS.Add(Emotion.Envy);
+            CURRENT_EMOTIONS.Add(Emotion.Anxiety);
+            CURRENT_EMOTIONS.Add(Emotion.Powerless);
 
         } else if (ROUNDS == 1) {
 
