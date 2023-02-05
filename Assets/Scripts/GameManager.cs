@@ -6,36 +6,54 @@ public class GameManager : MonoBehaviour
 {
     public static List<Emotion> CURRENT_EMOTIONS;
 
+    private static int ROUNDS;
+
     // Start is called before the first frame update
     void Start()
     {
 
+        ROUNDS = 0;
+
         CURRENT_EMOTIONS = new List<Emotion>();
-        nextInterlocutor();
 
+        nextInterlocutor();
         EventManager.StartRoom();
-        nextInterlocutor();
-    }
 
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void generateNewRoom() {
         EventManager.GenerateRoom();
-
+        nextInterlocutor();
     }
 
     public static void nextInterlocutor()
     {
+
         CURRENT_EMOTIONS.Clear();
-        CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
-        CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
-        CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
+
+        if (ROUNDS == 0) {
+
+            CURRENT_EMOTIONS.Add(Emotion.Sadness);
+
+        } else if (ROUNDS == 1) {
+
+            CURRENT_EMOTIONS.Add(Emotion.Sadness);
+            CURRENT_EMOTIONS.Add(Emotion.Anticipation);
+
+        } else if (ROUNDS == 2) {
+
+            CURRENT_EMOTIONS.Add(Emotion.Anxiety);
+
+        } else {
+
+            CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
+            CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
+            CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
+
+        }
+
+        ROUNDS++;
+
     }
 
     public static void tryCommiserateEmotion(Emotion emotion)

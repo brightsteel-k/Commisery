@@ -47,8 +47,17 @@ public class Nebula : MonoBehaviour
             current.transform.parent = transform;
             current.transform.SetSiblingIndex(Random.Range(0, GameManager.CURRENT_EMOTIONS.Count));
 
-            current.transform.position = transform.Find("Veins").position 
+            if (GameManager.CURRENT_EMOTIONS.Count == 1) {
+
+                current.transform.position = transform.Find("Veins").position;
+
+            } else {
+
+                current.transform.position = transform.Find("Veins").position 
                     + new Vector3(Mathf.Cos(i * divisions) *  60, Mathf.Sin(i * divisions) * 60, 0);
+                
+            }
+
 
             orbs.Add(current);
 
