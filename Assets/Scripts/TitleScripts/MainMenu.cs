@@ -38,8 +38,13 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(4);
     }
 
-        public void EndInstructions3()
+    public void EndInstructions3()
     {
         SceneManager.LoadScene(5);
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(0);
     }
 }
