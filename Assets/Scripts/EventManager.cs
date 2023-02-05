@@ -28,7 +28,10 @@ public class EventManager
     }
     public static void CommiserateLose()
     {
+        GameManager.FAILED_EMOTION = Emotion.Despair;
+        EventManager.Insanify(0.1f);
         COMMISERATE_LOSE?.Invoke();
+        GenerateRoom();
     }
     public static void GenerateRoom() 
     {

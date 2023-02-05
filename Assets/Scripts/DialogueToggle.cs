@@ -23,25 +23,18 @@ public class DialogueToggle : MonoBehaviour
     }
 
 
-    void Update() {
-
-        if (Input.GetKeyDown(KeyCode.H))
-            showCorrectAnswer();
-
-    }
-
     void openDialogueBox() {
 
         generateRandomSymbols();
 
-        LeanTween.scale(gameObject, new Vector3(0.9f, 0.9f, 0.9f), 1.0f)
+        LeanTween.scale(gameObject, new Vector3(0.8f, 0.8f, 0.8f), 1.0f)
                  .setEase( LeanTweenType.easeOutQuint );
 
     }
 
     void closeDialogueBox() {
 
-        LeanTween.scale(gameObject, new Vector3(0, 0, 0), 1.0f)
+        LeanTween.scale(gameObject, new Vector3(0, 0, 0), 2.0f)
                  .setEase( LeanTweenType.easeInBack )
                  .setOnComplete(() => { 
 
@@ -49,7 +42,7 @@ public class DialogueToggle : MonoBehaviour
 
                  });
 
-        LeanTween.moveX(gameObject, -0.0015f, 4.0f)
+        LeanTween.moveX(gameObject, -0.0015f, 6.0f)
                  .setEase(LeanTweenType.easeInOutCubic)
                  .setOnComplete(() => {
 
