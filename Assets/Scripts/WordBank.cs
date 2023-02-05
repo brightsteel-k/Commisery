@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.UI;
 
 public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     private TextMeshProUGUI tmp;
+    private RawImage image;
     private Mesh mesh;
     private Vector3[] originalVertices;
     private Vector3[] vertices;
@@ -25,7 +27,8 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // Start is called before the first frame update
     void Start()
     {
-        tmp = GetComponent<TextMeshProUGUI>();
+        tmp = transform.Find("Text").GetComponent<TextMeshProUGUI>();
+        image = GetComponent<RawImage>();
         mesh = tmp.mesh;
         setWord(Emotion.None);
     }
@@ -43,13 +46,14 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void setWord(Emotion emotion)
     {
         selectedEmotion = emotion;
+        image.CrossFadeColor(emotion.ChordColor(), 0.2f, false, false);
         if (selectedEmotion == Emotion.None)
             tmp.SetText("");
         else
             tmp.SetText(emotion.ToString());
 
         tmp.ForceMeshUpdate();
-        originalVertices = mesh.vertices;
+        originalVertices = mesh.vertices; 
     }
 
     private void animateWord()

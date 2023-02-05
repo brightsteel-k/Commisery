@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         ROUNDS = 0;
 
         CURRENT_EMOTIONS = new List<Emotion>();
@@ -33,7 +32,7 @@ public class GameManager : MonoBehaviour
 
         if (ROUNDS == 0) {
 
-            CURRENT_EMOTIONS.Add(Emotion.Sadness);
+            CURRENT_EMOTIONS.Add(Emotion.Envy);
 
         } else if (ROUNDS == 1) {
 

@@ -92,7 +92,7 @@ public class DotManager : MonoBehaviour
             length *= 2;
             for (int k = 0; k < length; k++)
             {
-                CURRENT_SEQUENCE.Add((index * Random.Range(1, 3), Mathf.Pow(Random.Range(timeThreshold / 10f, 1f) / 1.5f, difficulty)));
+                CURRENT_SEQUENCE.Add((index + (4 * Random.Range(0, 2)), Mathf.Pow(Random.Range(timeThreshold / 10f, 1f) / 1.5f, difficulty)));
             }
         }
         else
