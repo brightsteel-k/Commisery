@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 372263414}
   - component: {fileID: 372263413}
   m_Layer: 5
-  m_Name: Veins?
+  m_Name: Veins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,7 +312,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2001503619}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -760,9 +760,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wordBank: {fileID: 487960764}
-  cm: {fileID: 2079024652}
   sb: {fileID: 2027885441}
   sanityOverlay: {fileID: 508876777}
+  thoughtBoardOverlay: {fileID: 2106647473}
   nebula: {fileID: 2001503618}
 --- !u!1 &555002913
 GameObject:
@@ -926,7 +926,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2001503619}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -946,7 +946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.54509807}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1695,6 +1695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2001503619}
   - component: {fileID: 2001503621}
+  - component: {fileID: 2001503622}
   m_Layer: 5
   m_Name: Nebula
   m_TagString: Untagged
@@ -1714,8 +1715,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 625790470}
   - {fileID: 372263412}
+  - {fileID: 625790470}
   m_Father: {fileID: 366995338}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1732,6 +1733,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001503618}
   m_CullTransparentMesh: 1
+--- !u!114 &2001503622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001503618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e50dc82c010c26846b4e97f8610b120c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbSprite: {fileID: 21300000, guid: 72c795556d6634b46b5b7ef28dceefe3, type: 3}
 --- !u!1 &2027885439
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,17 +2233,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1037311923209150501, guid: cd425d4c163d09e46b8049c937eeb7e1, type: 3}
   m_PrefabInstance: {fileID: 2079024650}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2079024652 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1037311923209150506, guid: cd425d4c163d09e46b8049c937eeb7e1, type: 3}
-  m_PrefabInstance: {fileID: 2079024650}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fa5a6f75e99ba24bae3568efdb969d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2097020544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,7 +2317,6 @@ GameObject:
   - component: {fileID: 2106647474}
   - component: {fileID: 2106647477}
   - component: {fileID: 2106647476}
-  - component: {fileID: 2106647475}
   m_Layer: 5
   m_Name: ThoughtBoardOverlay
   m_TagString: Untagged
@@ -2342,23 +2344,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 300}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &2106647475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2106647473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27ec0b065251052499ff999bf10b3754, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wordBank: {fileID: 0}
-  cm: {fileID: 0}
-  sb: {fileID: 0}
-  sanityOverlay: {fileID: 0}
-  nebula: {fileID: 0}
 --- !u!114 &2106647476
 MonoBehaviour:
   m_ObjectHideFlags: 0
