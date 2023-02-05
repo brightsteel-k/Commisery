@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static List<Emotion> CURRENT_EMOTIONS;
 
+    public static bool TRANSITION_COND_1;
+    public static bool TRANSITION_COND_2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +21,16 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
             EventManager.GenerateRoom();
+
+        if (TRANSITION_COND_1 == true && TRANSITION_COND_2 == true)
+            EventManager.TRANSITION_COMPLETED = false;
         
     }
 
     public void generateNewRoom() {
 
+        TRANSITION_COND_1 = false;
+        TRANSITION_COND_2 = false;
         EventManager.GenerateRoom();
 
     }

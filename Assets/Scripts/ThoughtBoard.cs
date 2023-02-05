@@ -1,20 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ThoughtBoard : MonoBehaviour
 {
     [SerializeField] WordBank wordBank;
+    [SerializeField] ChordManager cm;
+    [SerializeField] Button sb;
+    [SerializeField] GameObject sanityOverlay;
     Emotion chosen;
+
+    void Start() {
+
+        EventManager.GENERATE_ROOM += disableBoard;
+
+    }
 
     void Update()
     {
+
         if (!EventManager.COMMISERATING)
         {
             chosen = readInitialChordInput();
 
             if (chosen != Emotion.None)
                 wordBank.setWord(chosen);
+        }
+
+        if (EventManager.TRANSITION_COMPLETED == true) {
+
+            GameManager.TRANSITION_COND_1 = true;
+            wordBank.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
+            wordBank.enabled = true;
+            sb.enabled = true;
+            cm.enabled = true;
+            sanityOverlay.SetActive(false);
+            transform.GetChild(3).gameObject.SetActive(false);
+
         }
 
     }
@@ -70,6 +94,18 @@ public class ThoughtBoard : MonoBehaviour
         }
 
         return Emotion.None;
+    }
+
+
+    void disableBoard() {
+
+        wordBank.enabled = false;
+        wordBank.gameObject.GetComponent<TextMeshProUGUI>().enabled = false;
+        sb.enabled = false;
+        cm.enabled = false;
+        sanityOverlay.SetActive(true);
+        transform.GetChild(3).gameObject.SetActive(true);
+
     }
 
 
