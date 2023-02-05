@@ -13,13 +13,11 @@ public class DialogueToggle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         toggled = false;
 
         dialogue = transform.GetChild(1).gameObject.GetComponent(typeof(TMP_Text)) as TMP_Text;
 
         dialogue.text = "";
-
     }
 
     // Update is called once per frame
