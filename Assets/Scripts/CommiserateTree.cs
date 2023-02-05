@@ -7,6 +7,8 @@ public class CommiserateTree : MonoBehaviour
 {
     [SerializeField] RawImage darkOverlay;
     [SerializeField] GameObject background;
+    [SerializeField] RawImage[] chords;
+    static CommiserateTree INSTANCE;
     private Color32 overlayColor = new Color(0, 0, 0, 0.65f);
 
     // Start is called before the first frame update
@@ -14,6 +16,7 @@ public class CommiserateTree : MonoBehaviour
     {
         background.transform.position += new Vector3(0, 800, 0);
         transform.position += new Vector3(0, -1080, 0);
+        INSTANCE = GetComponent<CommiserateTree>();
 
         EventManager.START_COMMISERATE += onCommiserateStart;
     }
@@ -57,5 +60,10 @@ public class CommiserateTree : MonoBehaviour
                 .setEaseOutQuad()
                 .setOnComplete(e => darkOverlay.gameObject.SetActive(false));
         }
+    }
+
+    public static void failChord(int index)
+    {
+        
     }
 }

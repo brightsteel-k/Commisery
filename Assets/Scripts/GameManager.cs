@@ -33,19 +33,3 @@ public class GameManager : MonoBehaviour
             EventManager.FailCommiserate();
     }
 }
-
-public enum Emotion
-{
-    Happiness,
-    Sadness,
-    Anger,
-    Fear,
-    Anticipation,
-    Envy,
-    Pessimism,
-    Anxiety,
-    Aggression,
-    Despair,
-    Powerless,
-    None
-}
