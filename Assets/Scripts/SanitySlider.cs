@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class SanitySlider : MonoBehaviour
 {
 
-    Slider slider;
+    private Slider slider;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 
         slider = GetComponent<Slider>();
@@ -19,7 +19,7 @@ public class SanitySlider : MonoBehaviour
 
     }
 
-    void Update() {
+    private void Update() {
 
         if (Input.GetKeyDown(KeyCode.L)) {
 
@@ -44,10 +44,13 @@ public class SanitySlider : MonoBehaviour
     // :)
     public void insanify(float n) {
 
-        LeanTween.value(gameObject, 0, Math.Abs(n), 400.0f)
+        float startValue = slider.value;
+
+        LeanTween.value(gameObject, 0, Math.Abs(n), 3.3f)
                      .setEase(LeanTweenType.linear)
                      .setOnUpdate((float val) => {
-                slider.value += n > 0 ? val : -val;
+                Debug.Log(val);
+                slider.value = startValue + (n > 0 ? val : -val);
             });
     }
 }

@@ -5,21 +5,21 @@ using UnityEngine;
 public class BackgroundController : MonoBehaviour
 {
 
-    GameObject leftPane;
-    GameObject rightPane;
+    private GameObject leftPane;
+    private GameObject rightPane;
 
-    GameObject leftCharacter;
-    GameObject rightCharacter;
+    private GameObject leftCharacter;
+    private GameObject rightCharacter;
 
-    GameObject newCharacter;
-    SpriteRenderer cSpriteRenderer;
+    private GameObject newCharacter;
+    private SpriteRenderer cSpriteRenderer;
 
     public Sprite[] sprites;
 
-    int count = 0;
+    private int count = 0;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 
         gameObject.transform.position = new Vector3(0, 0, 0);
@@ -32,20 +32,17 @@ public class BackgroundController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.G)) {
-
-            rightCharacter = generateCharacter(rightPane, 20.498f, 1);
-
+        if (Input.GetKeyDown(KeyCode.G))
             translateNewRoom();
-
-        }
 
     }
 
-    GameObject generateCharacter(GameObject appendTo, float xPos, int sIndex) {
+
+
+    private GameObject generateCharacter(GameObject appendTo, float xPos, int sIndex) {
 
         newCharacter = new GameObject();
         newCharacter.name = "Character" + count;
@@ -63,7 +60,9 @@ public class BackgroundController : MonoBehaviour
 
     }
 
-    void translateNewRoom() {
+    public void translateNewRoom() {
+
+        rightCharacter = generateCharacter(rightPane, 20.498f, 1);
 
         gameObject.transform.position = new Vector3(0, 0, 0);
         LeanTween.moveX(gameObject, -20.498f, 4.0f)
