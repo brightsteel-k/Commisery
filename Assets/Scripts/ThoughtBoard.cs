@@ -7,7 +7,6 @@ using TMPro;
 public class ThoughtBoard : MonoBehaviour
 {
     [SerializeField] WordBank wordBank;
-    [SerializeField] ChordManager cm;
     [SerializeField] Button sb;
     [SerializeField] GameObject sanityOverlay;
     [SerializeField] GameObject nebula;
@@ -22,7 +21,7 @@ public class ThoughtBoard : MonoBehaviour
     void Update()
     {
 
-        if (!EventManager.COMMISERATING)
+        if (!EventManager.COMMISERATING && EventManager.TRANSITION_COMPLETED)
         {
             chosen = readInitialChordInput();
 
@@ -30,14 +29,10 @@ public class ThoughtBoard : MonoBehaviour
                 wordBank.setWord(chosen);
         }
 
-        if (EventManager.TRANSITION_COMPLETED == true) {
+        if (EventManager.TRANSITION_COMPLETED) {
 
             GameManager.TRANSITION_COND_1 = true;
-            wordBank.gameObject.GetComponent<TextMeshProUGUI>().enabled = true;
-            wordBank.enabled = true;
             sb.enabled = true;
-            cm.enabled = true;
-            print(nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color);
             nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color = Color.white;
             nebula.transform.GetChild(1).gameObject.GetComponent<Image>().color = Color.white;
             sanityOverlay.SetActive(false);
@@ -102,11 +97,7 @@ public class ThoughtBoard : MonoBehaviour
 
 
     void disableBoard() {
-
-        wordBank.enabled = false;
-        wordBank.gameObject.GetComponent<TextMeshProUGUI>().enabled = false;
         sb.enabled = false;
-        cm.enabled = false;
         print(nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color);
         nebula.transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(29f/255f, 29f/255f, 29f/255f, 255f);
         nebula.transform.GetChild(1).gameObject.GetComponent<Image>().color = new Color(29f/255f, 29f/255f, 29f/255f, 255f);

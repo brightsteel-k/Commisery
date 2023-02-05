@@ -12,7 +12,7 @@ public class ChordManager : MonoBehaviour
     
     static ChordManager INSTANCE;
     public static Color32 CURRENT_COLOR = Color.white;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +39,9 @@ public class ChordManager : MonoBehaviour
 
     void strumChord(int index)
     {
+        if (!EventManager.TRANSITION_COMPLETED)
+            return;
+
         chordAnimators[index].SetTrigger("Strummed");
         CHORD_STRUMMED[index]?.Invoke();
     }

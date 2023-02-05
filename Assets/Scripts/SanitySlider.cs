@@ -49,7 +49,6 @@ public class SanitySlider : MonoBehaviour
         LeanTween.value(gameObject, 0, Math.Abs(n), 3.3f)
                      .setEase(LeanTweenType.linear)
                      .setOnUpdate((float val) => {
-                Debug.Log(val);
                 slider.value = startValue + (n > 0 ? val : -val);
             });
     }

@@ -8,7 +8,7 @@ public class EventManager
     public static bool COMMISERATING = false;
 
     public static event Action<Emotion> START_COMMISERATE;
-    public static event Action FAIL_COMMISERATE;
+    public static event Action COMMISERATE_MISTAKE;
 
     public static bool TRANSITION_COMPLETED;
 
@@ -22,7 +22,7 @@ public class EventManager
 
     public static void FailCommiserate()
     {
-        FAIL_COMMISERATE?.Invoke();
+        COMMISERATE_MISTAKE?.Invoke();
     }
 
     public static void GenerateRoom() 

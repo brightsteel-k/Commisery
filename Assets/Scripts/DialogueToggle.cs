@@ -25,7 +25,7 @@ public class DialogueToggle : MonoBehaviour
 
     void Update() {
 
-        if (EventManager.TRANSITION_COMPLETED == true) {
+        if (EventManager.TRANSITION_COMPLETED) {
             GameManager.TRANSITION_COND_2 = true;
             openDialogueBox();
         }

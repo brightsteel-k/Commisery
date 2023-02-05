@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
             EventManager.GenerateRoom();
 
-        if (TRANSITION_COND_1 == true && TRANSITION_COND_2 == true)
+        if (TRANSITION_COND_1 && TRANSITION_COND_2)
             EventManager.TRANSITION_COMPLETED = false;
         
     }
