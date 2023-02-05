@@ -5,11 +5,7 @@ using UnityEngine.UI;
 
 public class Dot : MonoBehaviour
 {
-    static Color32[] PESSIMIST_COLORS = new Color32[] {
-        new Color32(229, 233, 233, 255),
-        new Color32(112, 138, 140, 255)
-    };
-    public static Vector2[][] ALL_PATHS = new Vector2[12][];
+    public static Vector2[][] ALL_PATHS = new Vector2[16][];
     private Vector2[] path;
     private int pathIndex = 0;
     private int chordIndex;

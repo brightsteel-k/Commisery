@@ -15,6 +15,12 @@ public class DotManager : MonoBehaviour
     private static List<Dot> ACTIVE_DOTS = new List<Dot>();
     public static float DELTA_TIME;
 
+    private static float speed = 150f;
+    private static int length = 8;
+    private static float timeThreshold = 2;
+    private static float difficulty = 1;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +65,12 @@ public class DotManager : MonoBehaviour
         initializePath(9, new int[] { 0, 1, 40, 36, 5, 6, 7, 8, 9, 10, 11, 12, 13, 12, 11, 15, 16, 12, 17, 18 }); // Chord 1, path X
         initializePath(10, new int[] { 0, 1, 40, 35, 37, 38, 39, 31, 32, 28, 29, 28, 27, 21, 22, 23, 24, 25, 26 }); // Chord 2, path X
         initializePath(11, new int[] { 0, 1, 2, 34, 35, 36, 5, 4, 3, 34, 37, 38, 39, 19, 8, 7, 32, 28, 29, 30 }); // Chord 3, path X
+
+        // Aggression paths
+        initializePath(12, new int[] { 11, 12, 13, 14 }); // Chord 0, path Y
+        initializePath(13, new int[] { 10, 15, 16, 17, 18 }); // Chord 1, path Y
+        initializePath(14, new int[] { 21, 22, 23, 24, 25, 26 }); // Chord 2, path Y
+        initializePath(15, new int[] { 28, 29, 30 }); // Chord 3, path Y
     }
 
     static void initializePath(int n, int[] indices)
@@ -82,17 +94,20 @@ public class DotManager : MonoBehaviour
     {
         DELTA_TIME = 0f;
         CURRENT_SEQUENCE = new List<(int, float)>();
-        int length = 8;
-        float timeThreshold = 2;
-        float difficulty = 1;
         int pathIndices = CURRENT_EMOTION == Emotion.Anxiety ? 12 : 8;
         if (CURRENT_EMOTION == Emotion.Envy)
         {
             int index = Random.Range(0, 4);
-            length *= 2;
-            for (int k = 0; k < length; k++)
+            for (int k = 0; k < length * 2; k++)
             {
                 CURRENT_SEQUENCE.Add((index + (4 * Random.Range(0, 2)), Mathf.Pow(Random.Range(timeThreshold / 10f, 1f) / 1.5f, difficulty)));
+            }
+        }
+        else if (CURRENT_EMOTION == Emotion.Aggression)
+        {
+            for (int k = 0; k < length; k++)
+            {
+                CURRENT_SEQUENCE.Add((Random.Range(12, 16), Mathf.Pow(Random.Range(timeThreshold / 10f, 1f) * timeThreshold, difficulty)));
             }
         }
         else
@@ -119,7 +134,9 @@ public class DotManager : MonoBehaviour
     {
         Vector2 startPos = ALL_NODES[0];
         Dot d = Instantiate(PREFAB_DOT, startPos, Quaternion.identity, transform).GetComponent<Dot>();
-        d.initialize(path, 150, path % 4, CURRENT_EMOTION);
+        float dotSpeed = CURRENT_EMOTION == Emotion.Powerless ? speed * 2 : speed;
+        
+        d.initialize(path, dotSpeed, path % 4, CURRENT_EMOTION);
         ACTIVE_DOTS.Add(d);
     }
 

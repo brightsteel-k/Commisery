@@ -5,14 +5,9 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
 
-public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class WordBank : ShiftingText, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    private TextMeshProUGUI tmp;
     private RawImage image;
-    private Mesh mesh;
-    private Vector3[] originalVertices;
-    private Vector3[] vertices;
-    private float tick = 0;
     private Emotion selectedEmotion;
     private Color32 gray = new Color32(192, 192, 192, 255);
     [SerializeField] private Material fontRegular;
@@ -25,7 +20,7 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
         tmp = transform.Find("Text").GetComponent<TextMeshProUGUI>();
         image = GetComponent<RawImage>();
@@ -34,11 +29,10 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
         if (selectedEmotion != Emotion.None)
         {
-            vertices = mesh.vertices;
             animateWord();
         }
     }
@@ -48,30 +42,9 @@ public class WordBank : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         selectedEmotion = emotion;
         image.CrossFadeColor(emotion.ChordColor(), 0.2f, false, false);
         if (selectedEmotion == Emotion.None)
-            tmp.SetText("");
+            base.SetText("");
         else
-            tmp.SetText(emotion.ToString());
-
-        tmp.ForceMeshUpdate();
-        originalVertices = mesh.vertices; 
-    }
-
-    private void animateWord()
-    {
-        tick += Time.deltaTime;
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            Vector3 offset = wobble(tick + i, 8f, 6f);
-            vertices[i] = originalVertices[i] + offset;
-        }
-
-        mesh.vertices = vertices;
-        tmp.canvasRenderer.SetMesh(mesh);
-    }
-
-    private Vector2 wobble(float time, float x, float y)
-    {
-        return new Vector2(Mathf.Sin(time * x) * 2f, Mathf.Cos(time * y) * 2f);
+            base.SetText(emotion.ToString());
     }
 
     public void OnPointerEnter(PointerEventData eventData)

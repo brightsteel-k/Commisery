@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
         if (ROUNDS == 0) {
 
-            CURRENT_EMOTIONS.Add(Emotion.Envy);
+            CURRENT_EMOTIONS.Add(Emotion.Aggression);
 
         } else if (ROUNDS == 1) {
 
