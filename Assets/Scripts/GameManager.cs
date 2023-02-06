@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     public static void handleIncorrectChoice(Emotion e) {
 
-        FAILED_EMOTION = e;
+        FAILED_EMOTION = CURRENT_EMOTIONS[Random.Range(0, CURRENT_EMOTIONS.Count)];
         EventManager.Insanify(0.1f);
         EventManager.CommiserateLose();
     }
