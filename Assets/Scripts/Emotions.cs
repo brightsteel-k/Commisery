@@ -44,7 +44,7 @@ public static class Emotions
             case Emotion.Sadness:
                 return new Color32(40, 112, 199, 255);
             case Emotion.Anticipation:
-                return new Color32(255, 238, 128, 255);
+                return new Color32(201, 186, 89, 255);
             case Emotion.Fear:
                 return new Color32(131, 194, 82, 255);
             case Emotion.Aggression:

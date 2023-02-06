@@ -100,8 +100,8 @@ public class Nebula : MonoBehaviour
             }
         }
 
-        g.GetComponent<Image>().CrossFadeAlpha(0f, 0.5f, false);
-        LeanTween.moveLocalY(g, g.transform.localPosition.y, 1.2f)
+        g.GetComponent<Image>().CrossFadeAlpha(0f, 1f, false);
+        LeanTween.moveLocalY(g, g.transform.localPosition.y + 200f, 1.2f)
             .setEaseOutSine()
             .setOnComplete(e => {
                 Destroy(g);

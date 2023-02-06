@@ -138,7 +138,6 @@ public class DotManager : MonoBehaviour
     static List<(int, float)> generateSequence()
     {
         int length = lengthInit + GameManager.ROUNDS;
-        float timeThreshold = Mathf.Min(0.2f, GameManager.ROUNDS / 80f);
         float difficulty = Mathf.Log10(GameManager.ROUNDS * 50);
 
         DELTA_TIME = 0f;
@@ -149,7 +148,7 @@ public class DotManager : MonoBehaviour
             int index = Random.Range(0, 4);
             for (int k = 0; k < length * 2; k++)
             {
-                CURRENT_SEQUENCE.Add((index + (4 * Random.Range(0, 2)), Random.Range(0.5f, 2f) / difficulty));
+                CURRENT_SEQUENCE.Add((index + (4 * Random.Range(0, 2)), Random.Range(0.4f, 1.6f) / difficulty));
             }
         }
         else if (CURRENT_EMOTION == Emotion.Aggression)

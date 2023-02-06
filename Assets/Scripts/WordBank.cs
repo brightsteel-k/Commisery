@@ -16,6 +16,8 @@ public class WordBank : ShiftingText, IPointerEnterHandler, IPointerExitHandler,
     void Awake()
     {
         EventManager.GENERATE_ROOM += onRoomEnd;
+        EventManager.COMMISERATE_LOSE += onCommiserateEnd;
+        EventManager.COMMISERATE_WIN += onCommiserateEnd;
     }
 
     // Start is called before the first frame update
@@ -35,7 +37,10 @@ public class WordBank : ShiftingText, IPointerEnterHandler, IPointerExitHandler,
             animateWord();
 
             if (Input.GetKeyDown(KeyCode.Space) && !EventManager.COMMISERATING && EventManager.TRANSITION_COMPLETED)
+            {
                 GameManager.tryCommiserateEmotion(selectedEmotion);
+                setHighlight(true);
+            }
         }
 
     }
@@ -54,17 +59,14 @@ public class WordBank : ShiftingText, IPointerEnterHandler, IPointerExitHandler,
     {
         if (EventManager.COMMISERATING || selectedEmotion == Emotion.None)
             return;
-        tmp.color = Color.white;
-        tmp.fontMaterial = fontHighlight;
+        setHighlight(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (EventManager.COMMISERATING)
             return;
-
-        tmp.color = gray;
-        tmp.fontMaterial = fontRegular;
+        setHighlight(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -74,9 +76,28 @@ public class WordBank : ShiftingText, IPointerEnterHandler, IPointerExitHandler,
         GameManager.tryCommiserateEmotion(selectedEmotion);
     }
 
+    private void setHighlight(bool highlighted)
+    {
+        if (highlighted)
+        {
+            tmp.color = Color.white;
+            tmp.fontMaterial = fontHighlight;
+        }
+        else
+        {
+            tmp.color = gray;
+            tmp.fontMaterial = fontRegular;
+        }
+    }
+
     void onRoomEnd()
     {
         selectedEmotion = Emotion.None;
         setWord(Emotion.None);
+    }
+
+    void onCommiserateEnd()
+    {
+        setHighlight(false);
     }
 }

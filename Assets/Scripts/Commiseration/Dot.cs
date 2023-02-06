@@ -82,6 +82,6 @@ public class Dot : MonoBehaviour
 
     private float pessimistAlpha()
     {
-        return Mathf.Sin(DotManager.DELTA_TIME * 6f) / 2f + 0.5f;
+        return Mathf.Sin(DotManager.DELTA_TIME * 6f) / 3f + 0.5f;
     }
 }
