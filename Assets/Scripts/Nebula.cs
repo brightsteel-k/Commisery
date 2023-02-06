@@ -97,7 +97,7 @@ public class Nebula : MonoBehaviour
             .setOnComplete(e => {
                 Destroy(g);
                 ChordManager.enableInteraction();
-                GameManager.commiserateWin();
+                GameManager.handleCommiserateWin();
             });
 
         ACTIVE_ORBS.Remove(emotion);

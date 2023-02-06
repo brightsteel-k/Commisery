@@ -5,26 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
     public static List<Emotion> CURRENT_EMOTIONS;
 
-    public static Emotion FAILED_EMOTION;
-
-    public static int COMMISERATE_SUCCESSES;
-
+    /** Variables spanning the entire game */
+    public static int TOTAL_SUCCESSES;
     public static int ROUNDS;
 
-    public static int FAILS = 0;
+    /** Variables per mini-game round */
+    public static Emotion FAILED_EMOTION;
+    public static int STRIKES;
 
     private void Awake()
     {
         EventManager.COMMISERATE_LOSE += handleCommiserateFail;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
+
+        TOTAL_SUCCESSES = 0;
         ROUNDS = 0;
-        COMMISERATE_SUCCESSES = 0;
+        STRIKES = 0;
 
         CURRENT_EMOTIONS = new List<Emotion>();
         
@@ -33,21 +35,24 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public static void commiserateWin()
-    {
-        if (CURRENT_EMOTIONS.Count <= 0)
-            generateNewRoom();
-    }
 
+    /**
+    * Runs the sequence of shifting to a new room.
+    */
     public static void generateNewRoom() {
         EventManager.GenerateRoom();
         nextInterlocutor();
     }
 
+
+    /**
+    * As player shifts to a new room, there are a new set of emotions to deal with.
+    */
     public static void nextInterlocutor()
     {
+
         CURRENT_EMOTIONS.Clear();
-        FAILS = 0;
+        STRIKES = 0;
 
         if (ROUNDS == 0) {
 
@@ -74,6 +79,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    /**
+    * Checks if player chose the correct emotion.
+    */
     public static void tryCommiserateEmotion(Emotion emotion)
     {
         if (CURRENT_EMOTIONS.Contains(emotion))
@@ -83,21 +92,30 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public static void handleIncorrectChoice(Emotion e) {
 
-        FAILED_EMOTION = CURRENT_EMOTIONS[Random.Range(0, CURRENT_EMOTIONS.Count)];
+    private static void handleIncorrectChoice(Emotion e) {
+
+        FAILED_EMOTION = CURRENT_EMOTIONS[Random.Range(0, CURRENT_EMOTIONS.Count-1)];
         EventManager.Insanify(0.1f);
         EventManager.CommiserateLose();
     }
 
+
     public static void handleCommiserateFail()
     {
         ThoughtBoard.playHurtSound();
-        FAILS++;
-        if (FAILS >= 3)
+        STRIKES++;
+        if (STRIKES >= 3)
         {
             generateNewRoom();
         }
     }
+
+    public static void handleCommiserateWin()
+    {
+        if (CURRENT_EMOTIONS.Count <= 0)
+            generateNewRoom();
+    }
+
 
 }

@@ -28,7 +28,7 @@ public class EventManager
     {
         COMMISERATING = false;
         COMMISERATE_WIN?.Invoke();
-        GameManager.COMMISERATE_SUCCESSES += 1;
+        GameManager.TOTAL_SUCCESSES += 1;
     }
     public static void CommiserateLose()
     {

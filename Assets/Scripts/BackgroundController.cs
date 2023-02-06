@@ -20,8 +20,8 @@ public class BackgroundController : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.GENERATE_ROOM += generateNewRoom;
-        EventManager.COMMISERATE_LOSE += reactCharacter;
+        EventManager.GENERATE_ROOM += executeTransition;
+        EventManager.COMMISERATE_LOSE += shakeCharacter;
     }
 
     // Start is called before the first frame update
@@ -38,7 +38,7 @@ public class BackgroundController : MonoBehaviour
     }
 
 
-    public void generateNewRoom() {
+    public void executeTransition() {
 
         rightCharacter = generateCharacter(rightPane, 20.498f, Random.Range(1, sprites.Length));
         audioSource.Play();
@@ -90,7 +90,7 @@ public class BackgroundController : MonoBehaviour
     }
 
 
-    void reactCharacter() {
+    public void shakeCharacter() {
 
         Vector3 initialLoc = leftCharacter.transform.position;
         
