@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour
 
     public static void tryCommiserateEmotion(Emotion emotion)
     {
+        if (emotion == Emotion.None)
+            return;
+
         if (CURRENT_EMOTIONS.Contains(emotion))
             EventManager.StartCommiserate(emotion);
         else
