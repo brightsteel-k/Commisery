@@ -33,7 +33,11 @@ public class WordBank : ShiftingText, IPointerEnterHandler, IPointerExitHandler,
         if (selectedEmotion != Emotion.None)
         {
             animateWord();
+
+            if (Input.GetKeyDown(KeyCode.Space) && !EventManager.COMMISERATING && EventManager.TRANSITION_COMPLETED)
+                GameManager.tryCommiserateEmotion(selectedEmotion);
         }
+
     }
 
     public void setWord(Emotion emotion)

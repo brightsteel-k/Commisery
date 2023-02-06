@@ -28,15 +28,6 @@ public class GameManager : MonoBehaviour
         EventManager.StartRoom();
     }
 
-    public static void commiserateWin()
-    {
-        if (CURRENT_EMOTIONS.Count <= 0)
-        {
-            SUCCESSES++;
-            generateNewRoom();
-        }
-    }
-
     public static void generateNewRoom() {
         EventManager.GenerateRoom();
         nextInterlocutor();
@@ -100,6 +91,7 @@ public class GameManager : MonoBehaviour
 
     public static void handleCommiserateWin()
     {
+        SUCCESSES++;
         if (CURRENT_EMOTIONS.Count <= 0)
             generateNewRoom();
     }
