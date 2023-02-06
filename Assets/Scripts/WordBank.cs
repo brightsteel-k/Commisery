@@ -15,7 +15,6 @@ public class WordBank : ShiftingText, IPointerEnterHandler, IPointerExitHandler,
 
     void Awake()
     {
-        EventManager.START_COMMISERATE += onCommiserateStart;
         EventManager.GENERATE_ROOM += onRoomEnd;
     }
 
@@ -75,10 +74,5 @@ public class WordBank : ShiftingText, IPointerEnterHandler, IPointerExitHandler,
     {
         selectedEmotion = Emotion.None;
         setWord(Emotion.None);
-    }
-
-    void onCommiserateStart(Emotion emotion)
-    {
-
     }
 }

@@ -8,7 +8,7 @@ public class CommiserateTree : MonoBehaviour
     [SerializeField] RawImage darkOverlay;
     [SerializeField] GameObject background;
     [SerializeField] RawImage[] chords;
-    AudioSource audioSource;
+    static AudioSource audioSource;
     static CommiserateTree INSTANCE;
     private Color32 overlayColor = new Color(0, 0, 0, 0.65f);
 
@@ -87,7 +87,7 @@ public class CommiserateTree : MonoBehaviour
     {
         INSTANCE.easeTreeOut();
         INSTANCE.setOverlayActive(false);
-        INSTANCE.audioSource.Play();
+        audioSource.Play();
         ChordManager.resetChordColors();
         ChordManager.disableInteraction();
     }

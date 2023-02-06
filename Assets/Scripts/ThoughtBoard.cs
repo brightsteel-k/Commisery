@@ -11,6 +11,7 @@ public class ThoughtBoard : MonoBehaviour
     [SerializeField] GameObject sanityOverlay;
     [SerializeField] GameObject thoughtBoardOverlay;
     [SerializeField] GameObject nebula;
+    static AudioSource audioSource;
     Emotion chosen;
 
     private void Awake()
@@ -20,7 +21,7 @@ public class ThoughtBoard : MonoBehaviour
     }
 
     void Start() {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -87,6 +88,10 @@ public class ThoughtBoard : MonoBehaviour
         return Emotion.None;
     }
 
+    public static void playHurtSound()
+    {
+        audioSource.Play();
+    }
 
     void disableBoard()
     {

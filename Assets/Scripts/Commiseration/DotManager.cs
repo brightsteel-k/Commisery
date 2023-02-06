@@ -140,7 +140,7 @@ public class DotManager : MonoBehaviour
     static List<(int, float)> generateSequence()
     {
         int length = lengthInit + GameManager.ROUNDS;
-        float timeThreshold = Mathf.Max(1f, 2f - (GameManager.ROUNDS * 0.1f));
+        float timeThreshold = Mathf.Max(1f, timeThresholdInit - (GameManager.ROUNDS * 0.1f));
         float difficulty = difficultyInit + GameManager.ROUNDS;
 
         DELTA_TIME = 0f;

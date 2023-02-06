@@ -13,9 +13,11 @@ public class GameManager : MonoBehaviour
 
     public static int ROUNDS;
 
+    public static int FAILS = 0;
+
     private void Awake()
     {
-        
+        EventManager.COMMISERATE_LOSE += handleCommiserateFail;
     }
 
     // Start is called before the first frame update
@@ -44,8 +46,8 @@ public class GameManager : MonoBehaviour
 
     public static void nextInterlocutor()
     {
-
         CURRENT_EMOTIONS.Clear();
+        FAILS = 0;
 
         if (ROUNDS == 0) {
 
@@ -86,6 +88,16 @@ public class GameManager : MonoBehaviour
         FAILED_EMOTION = e;
         EventManager.Insanify(0.1f);
         EventManager.CommiserateLose();
+    }
+
+    public static void handleCommiserateFail()
+    {
+        ThoughtBoard.playHurtSound();
+        FAILS++;
+        if (FAILS >= 3)
+        {
+            generateNewRoom();
+        }
     }
 
 }
