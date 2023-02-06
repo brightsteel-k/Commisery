@@ -10,7 +10,8 @@ public class Score : MonoBehaviour
     private void Awake() {
 
         t = GetComponent<TextMeshProUGUI>();
-        t.text = "You helped " + GameManager.SUCCESSES + " people.";
+
+        t.text = "You helped " + GameManager.SUCCESSES + (GameManager.SUCCESSES == 1 ? " person." : " people.");
 
     }
 

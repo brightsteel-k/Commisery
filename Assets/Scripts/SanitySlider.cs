@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class SanitySlider : MonoBehaviour
 {
@@ -24,16 +23,6 @@ public class SanitySlider : MonoBehaviour
 
     }
 
-    private void Update() {
-
-        if (slider.value >= 1.0f) {
-
-            EventManager.EndGame();
-
-        }
-
-    }
-
     public float getSanityLevel() {
 
         return slider.value;
@@ -48,6 +37,13 @@ public class SanitySlider : MonoBehaviour
 
     // :)
     public void insanify(float n) {
+
+        if (slider.value + n >= 0.99f) {
+
+            EventManager.EndGame();
+            return;
+
+        }
 
         LeanTween.cancel(gameObject);
         float startValue = slider.value;

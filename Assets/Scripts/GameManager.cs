@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +18,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         ROUNDS = 0;
         SUCCESSES = 0;
         FAILED_EMOTION = Emotion.None;
@@ -91,8 +91,11 @@ public class GameManager : MonoBehaviour
 
     public static void handleCommiserateWin()
     {
-        if (CURRENT_EMOTIONS.Count <= 0)
+        if (CURRENT_EMOTIONS.Count <= 0) {
+
             SUCCESSES++;
             generateNewRoom();
+
+        }
     }
 }
