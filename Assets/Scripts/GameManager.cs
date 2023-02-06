@@ -5,63 +5,56 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     public static List<Emotion> CURRENT_EMOTIONS;
-
-    /** Variables spanning the entire game */
-    public static int TOTAL_SUCCESSES;
-    public static int ROUNDS;
-
-    /** Variables per mini-game round */
     public static Emotion FAILED_EMOTION;
-    public static int STRIKES;
+    public static int SUCCESSES;
+    public static int ROUNDS;
+    public static int FAILS;
 
     private void Awake()
     {
         EventManager.COMMISERATE_LOSE += handleCommiserateFail;
     }
 
+    // Start is called before the first frame update
     void Start()
     {
-
-        TOTAL_SUCCESSES = 0;
         ROUNDS = 0;
-        STRIKES = 0;
-
+        SUCCESSES = 0;
+        FAILED_EMOTION = Emotion.None;
         CURRENT_EMOTIONS = new List<Emotion>();
         
         nextInterlocutor();
         EventManager.StartRoom();
-
     }
 
+    public static void commiserateWin()
+    {
+        if (CURRENT_EMOTIONS.Count <= 0)
+        {
+            SUCCESSES++;
+            generateNewRoom();
+        }
+    }
 
-    /**
-    * Runs the sequence of shifting to a new room.
-    */
     public static void generateNewRoom() {
         EventManager.GenerateRoom();
         nextInterlocutor();
     }
 
-
-    /**
-    * As player shifts to a new room, there are a new set of emotions to deal with.
-    */
     public static void nextInterlocutor()
     {
-
         CURRENT_EMOTIONS.Clear();
-        STRIKES = 0;
+        FAILS = 0;
 
         if (ROUNDS == 0) {
 
-            CURRENT_EMOTIONS.Add(Emotion.Sadness);
+            CURRENT_EMOTIONS.Add((Emotion) Random.Range(0, 4));
 
         } else if (ROUNDS == 1) {
 
-            CURRENT_EMOTIONS.Add(Emotion.Sadness);
-            CURRENT_EMOTIONS.Add(Emotion.Anticipation);
+            CURRENT_EMOTIONS.Add((Emotion)Random.Range(0, 4));
+            CURRENT_EMOTIONS.Add((Emotion)Random.Range(0, 4));
 
         } else if (ROUNDS == 2) {
 
@@ -69,8 +62,8 @@ public class GameManager : MonoBehaviour
 
         } else {
 
-            for (int i = 0; i < Random.Range(1, 5); i++) {
-                CURRENT_EMOTIONS.Add((Emotion) Random.Range(1, 11));
+            for (int i = 0; i < Random.Range(2, 6); i++) {
+                CURRENT_EMOTIONS.Add((Emotion) Random.Range(0, 10));
             }
 
         }
@@ -79,10 +72,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-    /**
-    * Checks if player chose the correct emotion.
-    */
     public static void tryCommiserateEmotion(Emotion emotion)
     {
         if (CURRENT_EMOTIONS.Contains(emotion))
@@ -92,20 +81,18 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public static void handleIncorrectChoice(Emotion e) {
 
-    private static void handleIncorrectChoice(Emotion e) {
-
-        FAILED_EMOTION = CURRENT_EMOTIONS[Random.Range(0, CURRENT_EMOTIONS.Count-1)];
+        FAILED_EMOTION = CURRENT_EMOTIONS[Random.Range(0, CURRENT_EMOTIONS.Count)];
         EventManager.Insanify(0.1f);
         EventManager.CommiserateLose();
     }
 
-
     public static void handleCommiserateFail()
     {
         ThoughtBoard.playHurtSound();
-        STRIKES++;
-        if (STRIKES >= 3)
+        FAILS++;
+        if (FAILS >= 3)
         {
             generateNewRoom();
         }
@@ -116,6 +103,4 @@ public class GameManager : MonoBehaviour
         if (CURRENT_EMOTIONS.Count <= 0)
             generateNewRoom();
     }
-
-
 }

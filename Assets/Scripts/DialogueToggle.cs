@@ -5,7 +5,7 @@ using TMPro;
 
 public class DialogueToggle : MonoBehaviour
 {
-    TMP_Text dialogue;
+    TextMeshProUGUI dialogue;
 
     private void Awake()
     {
@@ -17,9 +17,8 @@ public class DialogueToggle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dialogue = transform.GetChild(1).gameObject.GetComponent(typeof(TMP_Text)) as TMP_Text;
-
-        openDialogueBox();
+        LeanTween.cancel(gameObject);
+        dialogue = transform.Find("Dialogue").GetComponent<TextMeshProUGUI>();
     }
 
 
@@ -38,7 +37,7 @@ public class DialogueToggle : MonoBehaviour
                  .setEase( LeanTweenType.easeInBack )
                  .setOnComplete(() => { 
 
-                    dialogue.text = "";
+                    dialogue.SetText("");
 
                  });
 
@@ -62,7 +61,7 @@ public class DialogueToggle : MonoBehaviour
 
         }
 
-        dialogue.text = result;
+        dialogue.SetText(result);
 
         LeanTween.value(gameObject, 0f, dialogue.text.Length, dialogue.text.Length * 0.05f)
                  .setOnUpdate(e => dialogue.maxVisibleCharacters = (int)e);
@@ -127,7 +126,7 @@ public class DialogueToggle : MonoBehaviour
 
         }
 
-        dialogue.text = result;
+        dialogue.SetText(result);
 
     }
 

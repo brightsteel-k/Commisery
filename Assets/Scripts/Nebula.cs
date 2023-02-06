@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Nebula : MonoBehaviour
 {
-    public static Dictionary<Emotion, GameObject> ACTIVE_ORBS = new Dictionary<Emotion, GameObject>();
+    public static List<GameObject> ACTIVE_ORBS;
     GameObject current;
     SpriteRenderer sr;
 
@@ -19,17 +19,17 @@ public class Nebula : MonoBehaviour
     {
         EventManager.GENERATE_ROOM += disableNebula;
         EventManager.START_ROOM += enableNebula;
-        
     }
 
     void spawnOrbs() {
 
+        ACTIVE_ORBS = new List<GameObject>();
         float divisions = 2f * Mathf.PI / GameManager.CURRENT_EMOTIONS.Count;
         
         for (int i = 1; i <= GameManager.CURRENT_EMOTIONS.Count; i++) {
 
             current = new GameObject();
-            current.name = "orb" + orbCount;
+            current.name = GameManager.CURRENT_EMOTIONS[i - 1].ToString();
             orbCount++;
 
             Image img = current.AddComponent<Image>();
@@ -55,7 +55,7 @@ public class Nebula : MonoBehaviour
             }
 
 
-            ACTIVE_ORBS.Add(GameManager.CURRENT_EMOTIONS[i - 1], current);
+            ACTIVE_ORBS.Add(current);
 
         }
 
@@ -66,9 +66,9 @@ public class Nebula : MonoBehaviour
 
     public void disableNebula() {
 
-        foreach(KeyValuePair<Emotion, GameObject> o in ACTIVE_ORBS) {
+        foreach(GameObject o in ACTIVE_ORBS) {
 
-            Destroy(o.Value);
+            Destroy(o);
 
         }
 
@@ -90,7 +90,16 @@ public class Nebula : MonoBehaviour
 
     public static void removeEmotion(Emotion emotion)
     {
-        GameObject g = ACTIVE_ORBS[emotion];
+        GameObject g = null;
+        foreach (GameObject x in ACTIVE_ORBS)
+        {
+            if (x.name == emotion.ToString())
+            {
+                g = x;
+                break;
+            }
+        }
+
         g.GetComponent<Image>().CrossFadeAlpha(0f, 0.5f, false);
         LeanTween.moveLocalY(g, g.transform.localPosition.y, 1.2f)
             .setEaseOutSine()
@@ -100,6 +109,6 @@ public class Nebula : MonoBehaviour
                 GameManager.handleCommiserateWin();
             });
 
-        ACTIVE_ORBS.Remove(emotion);
+        ACTIVE_ORBS.Remove(g);
     }
 }

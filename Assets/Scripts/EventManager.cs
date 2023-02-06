@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class EventManager
 {
-
     public static event Action<Emotion> START_COMMISERATE;
     public static event Action COMMISERATE_WIN;
     public static event Action COMMISERATE_LOSE;
@@ -28,7 +27,6 @@ public class EventManager
     {
         COMMISERATING = false;
         COMMISERATE_WIN?.Invoke();
-        GameManager.TOTAL_SUCCESSES += 1;
     }
     public static void CommiserateLose()
     {
@@ -52,4 +50,17 @@ public class EventManager
     public static void EndGame() {
         SceneManager.LoadScene(6);
     }
+    public static void ResetEvents()
+    {
+        START_COMMISERATE = null;
+        COMMISERATE_WIN = null;
+        COMMISERATE_LOSE = null;
+        GENERATE_ROOM = null;
+        START_ROOM = null;
+        INSANIFY = null;
+        END_GAME = null;
+
+        COMMISERATING = false;
+        TRANSITION_COMPLETED = true;
+}
 }

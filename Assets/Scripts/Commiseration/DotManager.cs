@@ -25,8 +25,6 @@ public class DotManager : MonoBehaviour
 
     private static float speedInit = 150f;
     private static int lengthInit = 8;
-    private static float timeThresholdInit = 2;
-    private static float difficultyInit = 1;
 
     private void Awake()
     {
@@ -140,8 +138,8 @@ public class DotManager : MonoBehaviour
     static List<(int, float)> generateSequence()
     {
         int length = lengthInit + GameManager.ROUNDS;
-        float timeThreshold = Mathf.Max(1f, timeThresholdInit - (GameManager.ROUNDS * 0.1f));
-        float difficulty = difficultyInit + GameManager.ROUNDS;
+        float timeThreshold = Mathf.Min(0.2f, GameManager.ROUNDS / 80f);
+        float difficulty = Mathf.Log10(GameManager.ROUNDS * 50);
 
         DELTA_TIME = 0f;
         CURRENT_SEQUENCE = new List<(int, float)>();
@@ -151,21 +149,21 @@ public class DotManager : MonoBehaviour
             int index = Random.Range(0, 4);
             for (int k = 0; k < length * 2; k++)
             {
-                CURRENT_SEQUENCE.Add((index + (4 * Random.Range(0, 2)), Mathf.Pow(Random.Range(timeThreshold / 10f, 1f) / 1.5f, difficulty)));
+                CURRENT_SEQUENCE.Add((index + (4 * Random.Range(0, 2)), Random.Range(0.5f, 2f) / difficulty));
             }
         }
         else if (CURRENT_EMOTION == Emotion.Aggression)
         {
             for (int k = 0; k < length; k++)
             {
-                CURRENT_SEQUENCE.Add((Random.Range(12, 16), Mathf.Pow(Random.Range(timeThreshold / 10f, 1f) * timeThreshold, difficulty)));
+                CURRENT_SEQUENCE.Add((Random.Range(12, 16), Random.Range(0.5f, 3f) / difficulty));
             }
         }
         else
         {
             for (int k = 0; k < length; k++)
             {
-                CURRENT_SEQUENCE.Add((Random.Range(0, pathIndices), Mathf.Pow(Random.Range(timeThreshold / 10f, 1f) * timeThreshold, difficulty)));
+                CURRENT_SEQUENCE.Add((Random.Range(0, pathIndices), Random.Range(0.5f, 3f) / difficulty));
             }
         }
 
@@ -190,7 +188,7 @@ public class DotManager : MonoBehaviour
         float speed = 10f * GameManager.ROUNDS + speedInit;
         Vector2 startPos = ALL_NODES[0];
         Dot d = Instantiate(PREFAB_DOT, startPos, Quaternion.identity, transform).GetComponent<Dot>();
-        float dotSpeed = CURRENT_EMOTION == Emotion.Powerless ? speed * 2 : speed;
+        float dotSpeed = CURRENT_EMOTION == Emotion.Powerless ? speed * 1.4f : speed;
         
         d.initialize(path, dotSpeed, path % 4, CURRENT_EMOTION);
         ACTIVE_DOTS.Add(d);

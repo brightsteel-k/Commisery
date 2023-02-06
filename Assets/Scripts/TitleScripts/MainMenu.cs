@@ -45,6 +45,8 @@ public class MainMenu : MonoBehaviour
 
     public void Retry()
     {
+        EventManager.ResetEvents();
+        LeanTween.cancelAll();
         SceneManager.LoadScene(0);
     }
 }

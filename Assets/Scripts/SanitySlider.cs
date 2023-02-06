@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class SanitySlider : MonoBehaviour
 {
-    public static float TOTAL_SANITY = 1f;
+    public static float TOTAL_SANITY;
     private Slider slider;
 
     private void Awake()
@@ -18,8 +18,9 @@ public class SanitySlider : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-
         slider = GetComponent<Slider>();
+        TOTAL_SANITY = 1f;
+        slider.value = 0f;
 
     }
 
