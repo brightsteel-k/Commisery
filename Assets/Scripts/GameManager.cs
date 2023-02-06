@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
         } else if (ROUNDS == 2) {
 
-            CURRENT_EMOTIONS.Add(Emotion.Anxiety);
+            CURRENT_EMOTIONS.Add(Emotion.Envy);
 
         } else {
 
@@ -91,8 +91,8 @@ public class GameManager : MonoBehaviour
 
     public static void handleCommiserateWin()
     {
-        SUCCESSES++;
         if (CURRENT_EMOTIONS.Count <= 0)
+            SUCCESSES++;
             generateNewRoom();
     }
 }
