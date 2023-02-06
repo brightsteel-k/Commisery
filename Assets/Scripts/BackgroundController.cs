@@ -38,6 +38,9 @@ public class BackgroundController : MonoBehaviour
     }
 
 
+    /**
+    * Spawns a new character and shifts the panes over.
+    */
     public void executeTransition() {
 
         rightCharacter = generateCharacter(rightPane, 20.498f, Random.Range(1, sprites.Length));
